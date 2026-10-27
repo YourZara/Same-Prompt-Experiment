@@ -77,14 +77,28 @@ body {
   transform: translateY(-2px);
 }
 
-/* ---------- Card grid ---------- */
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 1.5rem;
+/* ---------- Gallery: one section per round ---------- */
+#gallery {
   max-width: 1250px;
   margin: 0 auto;
   padding: 2rem 1.5rem 3rem;
+}
+
+.round-group + .round-group {
+  margin-top: 3rem;
+}
+
+.round-title {
+  text-align: center;
+  font-size: clamp(1.25rem, 3vw, 1.6rem);
+  color: #ffd0dd;
+  margin-bottom: 1.25rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
 }
 
 /* One model = one card */
@@ -285,7 +299,7 @@ body {
 
 /* ---------- Responsive tweaks ---------- */
 @media (max-width: 480px) {
-  .gallery {
+  .grid {
     grid-template-columns: 1fr;   /* single column on phones */
     gap: 1.1rem;
   }

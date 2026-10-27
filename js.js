@@ -11,68 +11,100 @@
 /* ---------- 1. The list of tested models ------------------ *
  * To add a new test, drop the model's folder next to this file
  * and add one entry here: folder name and the files it made. */
-const MODELS = [
-  { name: "DeepSeek v4.1",        folder: "Deepseek v4.1",      files: ["index.html", "style.css", "script.js"] },
-  { name: "GLM-5.3 Flash (Free)", folder: "GLM5.3 flash free",  files: ["index.html", "style.css", "script.js"] },
-  { name: "Nemotron Lightning",   folder: "Nemotron Lightning", files: ["index.html", "style.css", "script.js"] },
-  { name: "Nemotron Super VL",    folder: "Nemotron super vl",  files: ["index.html", "style.css", "script.js"] },
+/* Round definitions: one heading + card grid per round. */
+const ROUNDS = [
+  { id: "rose-day", title: "Round 1 · Rose Day",  emoji: "🌹" },
+  { id: "dashain",  title: "Round 2 · Dashain",   emoji: "🪔" },
 ];
 
-/* ---------- Build the cards -------------------------------- */
+/* The list of tested models. Each entry carries the round it ran in. */
+const MODELS = [
+  { round: "rose-day", name: "DeepSeek v4.1",        folder: "Deepseek v4.1",              files: ["index.html", "style.css", "script.js"] },
+  { round: "rose-day", name: "GLM-5.3 Flash (Free)", folder: "GLM5.3 flash free",          files: ["index.html", "style.css", "script.js"] },
+  { round: "rose-day", name: "Nemotron Lightning",   folder: "Nemotron Lightning",         files: ["index.html", "style.css", "script.js"] },
+  { round: "rose-day", name: "Nemotron Super VL",    folder: "Nemotron super vl",          files: ["index.html", "style.css", "script.js"] },
+  { round: "dashain",  name: "DeepSeek v4.1",        folder: "Dashain Deepseek v4.1",      files: ["index.html", "style.css", "script.js"] },
+  { round: "dashain",  name: "GLM-5.3 Flash (Free)", folder: "Dashain GLM5.3 flash free",  files: ["index.html", "style.css", "script.js"] },
+  { round: "dashain",  name: "Nemotron Lightning",   folder: "Dashain Nemotron Lightning", files: ["index.html", "style.css", "script.js"] },
+  { round: "dashain",  name: "Nemotron Super VL",    folder: "Dashain Nemotron super vl",  files: ["index.html", "style.css", "script.js"] },
+];
+
+/* One card per model (shared by both round grids). */
+function makeCard(model, i) {
+  const folderURI = encodeURIComponent(model.folder); // folder names contain spaces
+
+  // Card shell
+  const card = document.createElement("article");
+  card.className = "card";
+  card.style.animationDelay = `${i * 0.12}s`; // staggered entrance
+
+  // Header
+  const header = document.createElement("div");
+  header.className = "card-header";
+  header.innerHTML = `
+    <h2>${model.name}</h2>
+    <span class="model-index">Model #${i + 1}</span>
+  `;
+
+  // Preview window (sandboxed: scripts can run, nothing touches this page)
+  const preview = document.createElement("div");
+  preview.className = "preview";
+  preview.innerHTML = `
+    <span class="loading">Loading preview…</span>
+    <iframe title="Preview of ${model.name}" sandbox="allow-scripts"
+            src="./${folderURI}/index.html" loading="lazy"></iframe>
+  `;
+
+  // Hide the "Loading…" note once the page actually renders
+  const iframe = preview.querySelector("iframe");
+  iframe.addEventListener("load", () => preview.classList.add("loaded"));
+
+  // Footer actions: see the files, open the page full screen
+  const actions = document.createElement("div");
+  actions.className = "card-actions";
+
+  const filesBtn = document.createElement("a");
+  filesBtn.className = "btn btn-outline";
+  filesBtn.href = `./${folderURI}/`;
+  filesBtn.target = "_blank";
+  filesBtn.rel = "noopener noreferrer";
+  filesBtn.textContent = `📂 Files (${model.files.length})`;
+
+  const openBtn = document.createElement("a");
+  openBtn.className = "btn btn-fill";
+  openBtn.href = `./${folderURI}/index.html`;
+  openBtn.target = "_blank";
+  openBtn.rel = "noopener noreferrer";
+  openBtn.textContent = model.round === "dashain" ? "🪔 Open Page" : "🌹 Open Page";
+
+  actions.append(filesBtn, openBtn);
+
+  card.append(header, preview, actions);
+  return card;
+}
+
+/* One heading + grid of cards per round. */
 function buildGallery() {
   const gallery = document.getElementById("gallery");
+  let cardIndex = 0;
 
-  MODELS.forEach((model, i) => {
-    const folderURI = encodeURIComponent(model.folder); // folder names contain spaces
+  ROUNDS.forEach((round) => {
+    const models = MODELS.filter((m) => m.round === round.id);
+    if (!models.length) return;
 
-    // Card shell
-    const card = document.createElement("article");
-    card.className = "card";
-    card.style.animationDelay = `${i * 0.12}s`; // staggered entrance
+    const group = document.createElement("div");
+    group.className = "round-group";
 
-    // Header
-    const header = document.createElement("div");
-    header.className = "card-header";
-    header.innerHTML = `
-      <h2>${model.name}</h2>
-      <span class="model-index">Model #${i + 1}</span>
-    `;
+    const title = document.createElement("h3");
+    title.className = "round-title";
+    title.textContent = `${round.emoji} ${round.title}`;
 
-    // Preview window (sandboxed: scripts can run, nothing touches this page)
-    const preview = document.createElement("div");
-    preview.className = "preview";
-    preview.innerHTML = `
-      <span class="loading">Loading preview…</span>
-      <iframe title="Preview of ${model.name}" sandbox="allow-scripts"
-              src="./${folderURI}/index.html" loading="lazy"></iframe>
-    `;
+    const grid = document.createElement("div");
+    grid.className = "grid";
+    models.forEach((model) => grid.appendChild(makeCard(model, cardIndex++)));
 
-    // Hide the "Loading…" note once the page actually renders
-    const iframe = preview.querySelector("iframe");
-    iframe.addEventListener("load", () => preview.classList.add("loaded"));
-
-    // Footer actions: see the files, open the page full screen
-    const actions = document.createElement("div");
-    actions.className = "card-actions";
-
-    const filesBtn = document.createElement("a");
-    filesBtn.className = "btn btn-outline";
-    filesBtn.href = `./${folderURI}/`;
-    filesBtn.target = "_blank";
-    filesBtn.rel = "noopener noreferrer";
-    filesBtn.textContent = `📂 Files (${model.files.length})`;
-
-    const openBtn = document.createElement("a");
-    openBtn.className = "btn btn-fill";
-    openBtn.href = `./${folderURI}/index.html`;
-    openBtn.target = "_blank";
-    openBtn.rel = "noopener noreferrer";
-    openBtn.textContent = "🌹 Open Page";
-
-    actions.append(filesBtn, openBtn);
-
-    card.append(header, preview, actions);
-    gallery.appendChild(card);
+    group.append(title, grid);
+    gallery.appendChild(group);
   });
 }
 
