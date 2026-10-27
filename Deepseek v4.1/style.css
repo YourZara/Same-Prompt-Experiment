@@ -1,0 +1,333 @@
+/* ==========================================================================
+   Happy Rose Day — styles
+   Palette: deep burgundy background, soft pink card, red rose accents.
+   Fonts: system only (Georgia for romance, system UI for body text).
+   ========================================================================== */
+
+:root {
+  --rose-900: #4a0a1c;
+  --rose-800: #6b0619;
+  --rose-700: #8e0f2b;
+  --rose-600: #a4133c;
+  --rose-500: #d61f3e;
+  --rose-400: #e63956;
+  --rose-300: #ff8fa3;
+  --rose-200: #ffb3c6;
+  --rose-100: #ffd6e0;
+  --ink: #3b0a18;
+  --ink-soft: #6b1d31;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: clamp(16px, 4vw, 40px);
+  overflow-x: hidden;
+  color: var(--ink);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  background:
+    radial-gradient(55rem 38rem at 12% 8%, rgba(255, 143, 163, 0.24), transparent 60%),
+    radial-gradient(48rem 34rem at 88% 92%, rgba(214, 31, 62, 0.32), transparent 62%),
+    linear-gradient(160deg, #2a0611 0%, #4a0a1e 48%, #1c040b 100%);
+}
+
+/* --------------------------------------------------------------------------
+   Falling petals (background layer)
+   -------------------------------------------------------------------------- */
+
+.petals {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.petal {
+  position: absolute;
+  top: -10vh;
+  left: var(--x, 50vw);
+  width: var(--size, 14px);
+  height: calc(var(--size, 14px) * 1.35);
+  animation: petal-fall var(--fall-duration, 12s) linear var(--fall-delay, 0s) infinite;
+  will-change: transform;
+}
+
+.petal__shape {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 100% 0 100% 0;
+  background:
+    radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.55), transparent 45%),
+    linear-gradient(135deg, var(--c1, #ffb3c6), var(--c2, #d61f3e));
+  opacity: var(--opacity, 0.75);
+  box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.35);
+  animation: petal-sway var(--sway-duration, 4s) ease-in-out var(--sway-delay, 0s) infinite alternate;
+}
+
+@keyframes petal-fall {
+  from {
+    transform: translate3d(0, -10vh, 0);
+  }
+  to {
+    transform: translate3d(var(--drift, 0px), 118vh, 0);
+  }
+}
+
+@keyframes petal-sway {
+  from {
+    transform: translateX(calc(var(--sway, 24px) * -0.5)) rotate(-30deg);
+  }
+  to {
+    transform: translateX(calc(var(--sway, 24px) * 0.5)) rotate(40deg);
+  }
+}
+
+/* Petals thrown outward from the button */
+.petal--burst {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  animation: petal-burst 1.15s cubic-bezier(0.16, 0.72, 0.3, 1) forwards;
+}
+
+.petal--burst .petal__shape {
+  animation: none;
+  opacity: 1;
+}
+
+@keyframes petal-burst {
+  0% {
+    transform: translate3d(var(--x), var(--y), 0) rotate(0deg) scale(0.4);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(calc(var(--x) + var(--tx)), calc(var(--y) + var(--ty)), 0)
+      rotate(var(--spin, 180deg)) scale(1);
+    opacity: 0;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Greeting card
+   -------------------------------------------------------------------------- */
+
+.card {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 560px);
+  padding: clamp(24px, 5vw, 44px);
+  text-align: center;
+  border-radius: clamp(22px, 5vw, 32px);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  background: radial-gradient(120% 90% at 50% 0%, #fffafc 0%, #ffe9ef 55%, #ffdbe6 100%);
+  box-shadow:
+    0 32px 70px -30px rgba(0, 0, 0, 0.7),
+    0 0 0 8px rgba(255, 255, 255, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  animation: card-in 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--rose-500);
+}
+
+h1 {
+  margin: 0 0 12px;
+  font-family: Georgia, "Iowan Old Style", "Palatino Linotype", "Times New Roman", serif;
+  font-size: clamp(1.85rem, 6vw, 2.85rem);
+  line-height: 1.12;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--rose-700);
+  text-wrap: balance;
+}
+
+h1 .emoji {
+  display: inline-block;
+  font-size: 0.9em;
+  transform: translateY(0.04em);
+}
+
+.message {
+  min-height: 3.3em;
+  max-width: 40ch;
+  margin: 0 auto 4px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1rem, 2.5vw, 1.12rem);
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  text-wrap: balance;
+}
+
+.message--pop {
+  animation: message-pop 0.45s ease;
+}
+
+@keyframes message-pop {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Rose illustration
+   -------------------------------------------------------------------------- */
+
+.rose-wrap {
+  display: flex;
+  justify-content: center;
+  margin: clamp(2px, 1vw, 10px) 0 clamp(10px, 2vw, 18px);
+}
+
+.rose {
+  display: block;
+  width: clamp(150px, 38vw, 200px);
+  height: auto;
+  filter: drop-shadow(0 18px 22px rgba(142, 15, 43, 0.25));
+  animation: rose-float 6s ease-in-out infinite;
+}
+
+@keyframes rose-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1deg);
+  }
+  50% {
+    transform: translateY(-7px) rotate(1deg);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Button
+   -------------------------------------------------------------------------- */
+
+.send-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  padding: 0.95em 1.9em;
+  border: 0;
+  border-radius: 999px;
+  font: inherit;
+  font-size: clamp(0.95rem, 2.4vw, 1.05rem);
+  font-weight: 700;
+  letter-spacing: 0.015em;
+  color: #fff;
+  cursor: pointer;
+  background: linear-gradient(135deg, #ff4d6d 0%, var(--rose-500) 55%, var(--rose-600) 100%);
+  box-shadow:
+    0 14px 26px -12px rgba(164, 19, 60, 0.95),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.send-btn:hover {
+  transform: translateY(-2px);
+  filter: saturate(1.08) brightness(1.03);
+  box-shadow:
+    0 18px 30px -12px rgba(164, 19, 60, 0.95),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.send-btn:active {
+  transform: translateY(0) scale(0.975);
+}
+
+.send-btn:focus-visible {
+  outline: 3px solid var(--rose-300);
+  outline-offset: 3px;
+}
+
+.hint {
+  margin: 14px 0 0;
+  font-size: 0.78rem;
+  color: #a15c6e;
+}
+
+/* --------------------------------------------------------------------------
+   Small screens
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 420px) {
+  body {
+    padding: 12px;
+  }
+
+  .card {
+    padding: 24px 18px 22px;
+  }
+
+  .message {
+    min-height: 3.4em;
+  }
+
+  .rose {
+    width: min(52vw, 165px);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Respect reduced-motion preferences
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .petals {
+    display: none;
+  }
+
+  .card,
+  .rose,
+  .message--pop {
+    animation: none !important;
+  }
+
+  .send-btn {
+    transition: none;
+  }
+
+  .petal--burst {
+    display: none;
+  }
+}

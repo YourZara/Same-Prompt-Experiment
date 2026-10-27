@@ -1,0 +1,217 @@
+/* ============================================================
+   Happy Rose Day — Styles
+   Romantic palette: reds, pinks, soft gradients
+   System fonts only
+   ============================================================ */
+
+:root {
+  /* Romantic color palette */
+  --rose-red: #d63031;
+  --rose-pink: #fd79a8;
+  --rose-deep: #c0392b;
+  --soft-pink: #ffe5e5;
+  --soft-white: #fff7f7;
+  --leaf-green: #2d6a4f;
+  --text-dark: #4a4a4a;
+
+  /* Layout */
+  --card-width: 340px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  /* Keep system-font UI crisp */
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Helvetica,
+    Arial,
+    sans-serif;
+  background:
+    linear-gradient(180deg, #fff7f7 0%, #ffe5e5 45%, #ffe0e0 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  color: var(--text-dark);
+  overflow-x: hidden;
+}
+
+/* ------------------------------------------------------------
+   Falling rose petals background (animated via CSS + JS)
+   ------------------------------------------------------------ */
+.petals {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;        /* petals never block clicks */
+  z-index: 0;
+  overflow: hidden;
+}
+
+.petal {
+  position: absolute;
+  top: -12px;
+  width: 12px;
+  height: 16px;
+  background: var(--rose-pink);
+  border-radius: 50% 50% 0 0;
+  opacity: 0.85;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.15));
+  animation: fall linear infinite;
+}
+
+/* Subtle size/color variants so the fall looks natural */
+.petal.small { width: 8px; height: 11px; opacity: 0.6; }
+.petal.medium { width: 12px; height: 16px; opacity: 0.8; }
+.petal.large { width: 16px; height: 20px; opacity: 0.95; background: var(--rose-red); }
+
+@keyframes fall {
+  0% {
+    transform: translateY(-10px) rotate(0deg) translateX(0);
+  }
+  25% {
+    transform: translateY(25vh) rotate(45deg) translateX(15px);
+  }
+  50% {
+    transform: translateY(50vh) rotate(90deg) translateX(-15px);
+  }
+  75% {
+    transform: translateY(75vh) rotate(135deg) translateX(15px);
+  }
+  100% {
+    transform: translateY(105vh) rotate(180deg) translateX(0);
+  }
+}
+
+/* ------------------------------------------------------------
+   Main card
+   ------------------------------------------------------------ */
+.card {
+  position: relative;
+  z-index: 1;
+  width: min(var(--card-width), 92vw);
+  padding: 32px 24px 40px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.08),
+    0 8px 16px rgba(192, 57, 43, 0.10);
+  text-align: center;
+  animation: fadeIn 0.8s ease-out both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ------------------------------------------------------------
+   Rose drawing (pure SVG)
+   ------------------------------------------------------------ */
+.rose {
+  margin: 0 auto 20px;
+  width: 120px;
+  height: 180px;
+  animation: float 5s ease-in-out infinite;
+}
+
+.rose svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+/* ------------------------------------------------------------
+   Typography
+   ------------------------------------------------------------ */
+h1 {
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  color: var(--rose-deep);
+  margin-bottom: 8px;
+  letter-spacing: 0.4px;
+  line-height: 1.2;
+}
+
+.message {
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  color: #6a6a6a;
+  margin-bottom: 28px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+/* ------------------------------------------------------------
+   Button
+   ------------------------------------------------------------ */
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  max-width: 220px;
+  padding: 12px 18px;
+  margin: 0 auto;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, var(--rose-red), var(--rose-deep));
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(192, 57, 43, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+
+button:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 8px 18px rgba(192, 57, 43, 0.45);
+}
+
+button:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+button:focus-visible {
+  outline: 3px solid rgba(253, 121, 168, 0.6);
+  outline-offset: 2px;
+}
+
+/* ------------------------------------------------------------
+   Responsive tweaks
+   ------------------------------------------------------------ */
+@media (max-width: 480px) {
+  body { padding: 14px; }
+  .card { padding: 24px 18px 30px; }
+  h1 { font-size: 1.6rem; }
+  .message { margin-bottom: 22px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .petal,
+  .rose {
+    animation: none !important;
+  }
+}

@@ -1,0 +1,227 @@
+/* ============================================================
+   Happy Rose Day — style.css
+   Romantic palette: deep reds, soft pinks, gentle gradients.
+   System fonts only, fully responsive.
+   ============================================================ */
+
+:root {
+  /* Palette (easy to tweak in one place) */
+  --deep-red: #60000f;      /* darkest backdrop tone       */
+  --rose-red: #b00020;      /* primary rose red            */
+  --pink:     #ef5b7b;      /* bright romantic pink        */
+  --soft-pink:#ffc2d1;      /* petals / highlights         */
+  --cream:    #fff0f3;      /* main text colour            */
+
+  --card-bg:  rgba(255, 240, 243, 0.08);   /* frosted card  */
+  --card-border: rgba(255, 194, 209, 0.35);
+}
+
+/* ---------- Base ---------- */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  min-height: 100%;
+}
+
+body {
+  /* Soft radial gradient: warm glow behind a deep red base */
+  background:
+    radial-gradient(circle at 50% 18%, rgba(239, 91, 123, 0.35), transparent 60%),
+    linear-gradient(160deg, var(--deep-red) 0%, #8a0420 55%, #38000c 100%);
+  background-attachment: fixed;
+
+  color: var(--cream);
+  font-family: Georgia, "Times New Roman", "Segoe UI", serif;
+  text-align: center;
+
+  /* Stack: card centered, petal field behind, footer below */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 48px 16px;
+  overflow-x: hidden;
+}
+
+/* ---------- Petals (background layer) ---------- */
+
+.petal-field {
+  position: fixed;
+  inset: 0;
+  pointer-events: none; /* petals never block clicks */
+  z-index: 0;
+}
+
+/* One petal = a small rounded blob, rotated while falling */
+.petal {
+  position: absolute;
+  top: -5vh;                       /* start just above the screen */
+  width: 18px;
+  height: 22px;
+  background: var(--soft-pink);
+  border-radius: 12px 2px 12px 2px; /* petal-like asymmetry */
+  opacity: 0.85;
+  animation-name: fall, sway, spin;
+  animation-duration: 9s, 3.2s, 4.5s;   /* fall slower than sway/spin */
+  animation-iteration-count: infinite, infinite, infinite;
+  animation-timing-function: linear, ease-in-out, ease-in-out;
+  will-change: transform;
+}
+
+/* Burst petals (from the button) share the look but fall once */
+.petal.burst {
+  animation-name: burst-fall, sway, spin;
+  animation-duration: 1.6s, 1s, 1.2s;
+  animation-iteration-count: 1, 1, 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fall {
+  /* translateY only; horizontal drift handled by the sway keyframes */
+  from { transform: translateY(-6vh); }
+  to   { transform: translateY(112vh); }
+}
+
+/* Horizontal drift via left margin trick (composes with translateY) */
+@keyframes sway {
+  0%   { margin-left: 0; }
+  50%  { margin-left: 28px; }
+  100% { margin-left: 0; }
+}
+
+@keyframes spin {
+  from { rotate: 0deg; }
+  to   { rotate: 360deg; }
+}
+
+@keyframes burst-fall {
+  from { transform: translateY(0); }
+  to   { transform: translateY(112vh); }
+}
+
+/* ---------- Main card ---------- */
+
+.card {
+  position: relative;
+  z-index: 1;                      /* above the petals */
+  max-width: 560px;
+  width: 100%;
+  padding: clamp(28px, 6vw, 48px);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 24px;
+  backdrop-filter: blur(6px);      /* frosted-glass feel */
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.title {
+  font-size: clamp(2rem, 6vw, 3rem);
+  line-height: 1.15;
+  color: var(--cream);
+  text-shadow: 0 2px 12px rgba(176, 0, 32, 0.6);
+}
+
+.rose-emoji {
+  display: inline-block;
+  animation: pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.12); }
+}
+
+.subtitle {
+  font-size: clamp(1rem, 2.5vw, 1.15rem);
+  font-style: italic;
+  color: var(--soft-pink);
+  max-width: 44ch;
+}
+
+/* ---------- SVG rose ---------- */
+
+.rose {
+  width: clamp(88px, 18vw, 130px);
+  height: auto;
+}
+
+/* Slow, gentle breathing of the whole bloom */
+.bloom {
+  transform-origin: 60px 72px;     /* centre of the flower head */
+  animation: bloom-breathe 3.5s ease-in-out infinite;
+}
+
+@keyframes bloom-breathe {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.05); }
+}
+
+/* ---------- Message + button ---------- */
+
+.message {
+  min-height: 3.2em;               /* reserve room so layout never jumps */
+  font-size: clamp(1rem, 2.5vw, 1.15rem);
+  color: var(--cream);
+}
+
+/* Little fade-in for each new message */
+.message.swap {
+  animation: fade-in 0.6s ease-out;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.send-btn {
+  font: inherit;
+  font-weight: bold;
+  font-size: clamp(1rem, 2.5vw, 1.1rem);
+  color: #fff0f3;
+  padding: 14px 30px;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  /* Red -> pink gradient button */
+  background: linear-gradient(135deg, var(--rose-red), var(--pink));
+  box-shadow: 0 8px 24px rgba(176, 0, 32, 0.45);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.send-btn:hover,
+.send-btn:focus-visible {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 12px 30px rgba(239, 91, 123, 0.55);
+}
+
+.send-btn:active {
+  transform: scale(0.97);
+}
+
+/* ---------- Footer ---------- */
+
+.footer {
+  position: relative;
+  z-index: 1;
+  font-size: 0.85rem;
+  color: var(--soft-pink);
+}
+
+/* ---------- Responsive tweaks ---------- */
+
+@media (max-width: 480px) {
+  body { padding: 32px 12px; gap: 16px; }
+  .card { gap: 16px; }
+  .petal { width: 13px; height: 16px; }   /* smaller petals on phones */
+}

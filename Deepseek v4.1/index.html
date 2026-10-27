@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#4a0a1e" />
+  <meta name="description" content="A little Rose Day greeting with a hand-drawn rose and falling petals." />
+  <title>Happy Rose Day 🌹</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Background layer: falling petals are added here by script.js -->
+  <div class="petals" id="petals" aria-hidden="true"></div>
+
+  <main class="card">
+    <p class="eyebrow">A little note for you</p>
+
+    <h1>Happy Rose Day <span class="emoji" aria-hidden="true">🌹</span></h1>
+
+    <p class="message" id="message" aria-live="polite">
+      Every rose has a story, but mine begins with you.
+    </p>
+
+    <!-- Rose illustration: pure inline SVG, no image files -->
+    <div class="rose-wrap">
+      <svg class="rose" viewBox="0 0 220 300" role="img" aria-labelledby="rose-title">
+        <title id="rose-title">A red rose in full bloom</title>
+
+        <defs>
+          <!-- One petal, reused at different sizes and angles -->
+          <path id="petal-shape"
+                d="M0 10 C-28 -2 -38 -38 -23 -57 C-12 -71 12 -71 23 -57 C38 -38 28 -2 0 10 Z" />
+
+          <radialGradient id="petal-outer" cx="50%" cy="20%" r="85%">
+            <stop offset="0%" stop-color="#ffb3c6" />
+            <stop offset="45%" stop-color="#e63956" />
+            <stop offset="100%" stop-color="#8e0f2b" />
+          </radialGradient>
+
+          <radialGradient id="petal-inner" cx="50%" cy="25%" r="80%">
+            <stop offset="0%" stop-color="#ff8fa3" />
+            <stop offset="55%" stop-color="#d61f3e" />
+            <stop offset="100%" stop-color="#6b0619" />
+          </radialGradient>
+
+          <linearGradient id="stem-color" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#2f7d3a" />
+            <stop offset="100%" stop-color="#165c23" />
+          </linearGradient>
+
+          <linearGradient id="leaf-color" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#4caf50" />
+            <stop offset="100%" stop-color="#1d6b2a" />
+          </linearGradient>
+        </defs>
+
+        <!-- Stem -->
+        <path d="M110 165 C103 200 117 240 110 283"
+              fill="none" stroke="url(#stem-color)" stroke-width="9" stroke-linecap="round" />
+
+        <!-- Leaves -->
+        <path d="M108 212 C85 197 61 202 49 223 C72 236 97 230 108 212 Z"
+              fill="url(#leaf-color)" />
+        <path d="M112 243 C135 228 159 233 171 254 C148 267 123 261 112 243 Z"
+              fill="url(#leaf-color)" />
+
+        <!-- Leaf veins -->
+        <path d="M106 214 C88 210 70 213 55 223"
+              fill="none" stroke="#1d5c28" stroke-opacity="0.55" stroke-width="2"
+              stroke-linecap="round" />
+        <path d="M114 245 C132 241 150 244 165 254"
+              fill="none" stroke="#1d5c28" stroke-opacity="0.55" stroke-width="2"
+              stroke-linecap="round" />
+
+        <!-- Bloom -->
+        <g transform="translate(110 100)">
+          <!-- Outer ring of petals -->
+          <g fill="url(#petal-outer)" stroke="#7d0a24" stroke-opacity="0.3"
+             stroke-width="1.2" stroke-linejoin="round">
+            <use href="#petal-shape" transform="rotate(0)" />
+            <use href="#petal-shape" transform="rotate(72)" />
+            <use href="#petal-shape" transform="rotate(144)" />
+            <use href="#petal-shape" transform="rotate(216)" />
+            <use href="#petal-shape" transform="rotate(288)" />
+          </g>
+
+          <!-- Middle ring, smaller and offset for depth -->
+          <g transform="rotate(36) scale(0.68)" fill="url(#petal-inner)"
+             stroke="#6b0619" stroke-opacity="0.35" stroke-width="1.2"
+             stroke-linejoin="round">
+            <use href="#petal-shape" transform="rotate(0)" />
+            <use href="#petal-shape" transform="rotate(72)" />
+            <use href="#petal-shape" transform="rotate(144)" />
+            <use href="#petal-shape" transform="rotate(216)" />
+            <use href="#petal-shape" transform="rotate(288)" />
+          </g>
+
+          <!-- Inner ring -->
+          <g transform="rotate(18) scale(0.42)" fill="url(#petal-inner)"
+             stroke="#5a0414" stroke-opacity="0.4" stroke-width="1.2"
+             stroke-linejoin="round">
+            <use href="#petal-shape" transform="rotate(0)" />
+            <use href="#petal-shape" transform="rotate(72)" />
+            <use href="#petal-shape" transform="rotate(144)" />
+            <use href="#petal-shape" transform="rotate(216)" />
+            <use href="#petal-shape" transform="rotate(288)" />
+          </g>
+
+          <!-- Dark centre with a small curl for depth -->
+          <circle r="13" fill="#6b0619" />
+          <path d="M-1 1 C5 -7 16 -4 15 4 C14 13 3 16 -4 10 C-12 3 -8 -9 2 -10 C11 -11 18 -4 17 4"
+                fill="none" stroke="#ffb3c6" stroke-opacity="0.6" stroke-width="2"
+                stroke-linecap="round" />
+
+          <!-- Soft highlight on the upper-left petals -->
+          <ellipse cx="-30" cy="-46" rx="18" ry="9" transform="rotate(-38)"
+                   fill="#ffffff" opacity="0.14" />
+        </g>
+      </svg>
+    </div>
+
+    <button class="send-btn" id="send-rose" type="button">
+      <span aria-hidden="true">🌹</span>
+      Send a Rose
+    </button>
+
+    <p class="hint">Press the button for a little surprise</p>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

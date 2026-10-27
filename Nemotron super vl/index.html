@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Rose Day 🌹</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Background layer for the animated falling petals -->
+  <div class="petals" id="petals"></div>
+
+  <main class="card">
+    <!-- Pure CSS/SVG rose (no image files) -->
+    <div class="rose" aria-hidden="true">
+      <svg viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg" role="img"
+           aria-label="Rose">
+        <!-- Stem -->
+        <path d="M 100 250 Q 95 290 100 300" fill="none" stroke="#2d6a4f" stroke-width="9" stroke-linecap="round" />
+        <!-- Leaves -->
+        <path d="M 100 210 Q 60 230 70 250 Q 80 260 100 240" fill="#52b788" stroke="#2d6a4f" stroke-width="2" />
+        <path d="M 100 210 Q 140 230 130 250 Q 120 260 100 240" fill="#52b788" stroke="#2d6a4f" stroke-width="2" />
+        <!-- Outer petals -->
+        <path d="M 100 40 Q 140 30 150 70 Q 160 100 130 120 Q 110 130 100 130 Q 90 130 70 120 Q 40 100 50 70 Q 60 30 100 40"
+              fill="#d63031" stroke="#c0392b" stroke-width="2" />
+        <path d="M 100 50 Q 70 40 60 80 Q 50 110 70 130 Q 90 140 100 130 Q 110 140 130 130 Q 150 110 140 80 Q 130 40 100 50"
+              fill="#e17055" stroke="#d35400" stroke-width="2" />
+        <!-- Inner petals -->
+        <path d="M 100 65 Q 120 60 125 85 Q 130 105 115 120 Q 100 120 85 120 Q 70 105 75 85 Q 80 60 100 65"
+              fill="#fd79a8" stroke="#e84393" stroke-width="2" />
+        <path d="M 100 80 Q 110 80 112 100 Q 110 115 100 115 Q 90 115 88 100 Q 90 80 100 80"
+              fill="#fdcb6e" stroke="#e17055" stroke-width="2" />
+        <!-- Center -->
+        <circle cx="100" cy="100" r="12" fill="#e17055" />
+      </svg>
+    </div>
+
+    <h1>Happy Rose Day 🌹</h1>
+    <p id="message" class="message">
+      You make every day bloom a little brighter.
+    </p>
+
+    <button id="roseBtn" type="button">Send a Rose</button>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Makes the page scale nicely on phones -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Rose Day 🌹</title>
+
+  <!-- Styles + behaviour (all local, no external files) -->
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <!-- Falling petals in the background live here (filled by script.js) -->
+  <div class="petal-field" id="petalField" aria-hidden="true"></div>
+
+  <main class="card">
+    <!-- Rose Day heading -->
+    <h1 class="title">Happy Rose Day <span class="rose-emoji">🌹</span></h1>
+
+    <!-- Short romantic message -->
+    <p class="subtitle">
+      Every love story is beautiful, but ours is my favourite —
+      this one rose says everything my words cannot.
+    </p>
+
+    <!-- Pure inline SVG rose: petals, stem and leaves, no image files -->
+    <svg class="rose" viewBox="0 0 120 260" role="img" aria-label="A hand-drawn red rose">
+      <!-- Stem -->
+      <path class="stem"
+            d="M60 110 C 58 150, 62 190, 60 250"
+            fill="none" stroke="#2e7d43" stroke-width="5" stroke-linecap="round" />
+
+      <!-- Left leaf -->
+      <path class="leaf"
+            d="M60 180 C 40 172, 26 180, 20 196 C 38 200, 54 194, 60 180 Z"
+            fill="#3e9b57" />
+      <!-- Right leaf -->
+      <path class="leaf"
+            d="M60 205 C 80 197, 94 205, 100 221 C 82 225, 66 219, 60 205 Z"
+            fill="#3e9b57" />
+
+      <!-- Rose bloom: layered petals, darkest outside -> brightest inside -->
+      <g class="bloom">
+        <!-- Outer petals -->
+        <path d="M60 100 C 34 98, 22 78, 28 58 C 36 66, 44 68, 48 62 C 40 46, 44 28, 60 20 C 76 28, 80 46, 72 62 C 76 68, 84 66, 92 58 C 98 78, 86 98, 60 100 Z"
+              fill="#b00020" />
+        <!-- Middle petals (slightly lighter) -->
+        <path d="M60 95 C 42 93, 34 78, 39 64 C 47 70, 54 70, 57 65 C 50 52, 54 38, 60 32 C 66 38, 70 52, 63 65 C 66 70, 73 70, 81 64 C 86 78, 78 93, 60 95 Z"
+              fill="#d81b3f" />
+        <!-- Inner petals highlighted -->
+        <path d="M60 90 C 50 89, 45 80, 48 71 C 54 75, 58 74, 60 70 C 62 74, 66 75, 72 71 C 75 80, 70 89, 60 90 Z"
+              fill="#ef5b7b" />
+        <!-- Bud centre -->
+        <circle cx="60" cy="72" r="6" fill="#ffc2d1" />
+      </g>
+    </svg>
+
+    <!-- Sweet message swaps in here when the button is pressed -->
+    <p class="message" id="message">
+      A single rose is all it takes to say "I love you" a thousand times.
+    </p>
+
+    <!-- The fun button -->
+    <button class="send-btn" id="sendBtn" type="button">Send a Rose 🌹</button>
+  </main>
+
+  <footer class="footer">Made with love, one petal at a time.</footer>
+
+</body>
+</html>

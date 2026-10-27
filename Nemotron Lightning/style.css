@@ -1,0 +1,234 @@
+/*!
+ * style.css - Happy Rose Day Web Page
+ * Romantic color palette, responsive design, animated petals
+ */
+
+/* ---------- CSS Variables (Color Palette & Fonts) ---------- */
+:root {
+    /* Romantic color palette */
+    --rose-red: #e84393;        /* Vibrant magenta-rose */
+    /* --rose-red: #c026d3;        /* Deep purple-rose */
+    --blush-pink: #ff6b6b;      /* Soft blushing pink */
+    --mauve-light: #f0cfe4;    /* Light mauve background */
+    --cream-soft: #f8f5f0;     /* Creamy off-white */
+    --leaf-green: #48d072;     /* Fresh leaf green */
+    --gold-accent: #ffd93d;    /* Gentle gold accent */
+
+    /* Typography */
+    --font-primary: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+
+    /* Animation durations */
+    --petal-fall-duration: 8s;
+    --petal-fall-delay-range: 4s;
+    --burst-duration: 3s;
+}
+
+/* ---------- Base Reset ---------- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-primary);
+    background: var(--mauve-light);
+    min-height: 100vh;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* ---------- Container ---------- */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* ---------- Header/Heading ---------- */
+header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 1.5rem 0;
+}
+
+h1 {
+    font-size: 3rem;
+    line-height: 1.2;
+    color: var(--rose-red);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 0.5rem;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: #666;
+    font-weight: 400;
+}
+
+/* ---------- Rose (CSS-drawn) ---------- */
+.rose-garden {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto 2rem;
+    padding: 2rem 0;
+}
+
+.rose {
+    position: relative;
+    width: 200px;
+    height: 280px;
+    transform: rotate(-20deg);
+}
+
+.rose-base {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 100px;
+    background: linear-gradient(180deg, var(--leaf-green), #2d6a4f);
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.rose-petals {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 30% 20%, #ff8c42, var(--rose-red));
+    border-radius: 50% 50% 60% 60%;
+    padding: 30px 20px;
+    overflow: visible;
+}
+
+.petal {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: #ff69b4;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    animation: petalFloat 6s infinite ease-in-out;
+}
+
+.petal:nth-child(1) { left: 20%; animation-delay: 0s; background: #ff69b4; }
+.petal:nth-child(2) { left: 60%; animation-delay: 1s; background: #ffb6c1; }
+.petal:nth-child(3) { left: 80%; animation-delay: 0.5s; background: #ff1493; }
+.petal:nth-child(4) { left: 40%; animation-delay: 1.5s; background: #da70d6; }
+.petal:nth-child(5) { left: 70%; animation-delay: 2s; background: #ff69b4; }
+
+@keyframes petalFloat {
+    0%, 100% { transform: translateY(0) rotate(-20deg); }
+    50% { transform: translateY(-30px) rotate(-10deg); }
+}
+
+.stem {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 4px;
+    height: 120px;
+    background: var(--leaf-green);
+    margin-left: -2px;
+    border-radius: 2px;
+    box-shadow: 0 6px 8px rgba(0,0,0,0.2);
+}
+
+.leaf {
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    width: 30px;
+    height: 20px;
+    background: var(--leaf-green);
+    border-radius: 50% 50% 0 0;
+    transform: translateX(-50%);
+    animation: leafSway 3s infinite ease-in-out;
+}
+
+@keyframes leafSway {
+    0%, 100% { transform: translateX(-50%) rotate(15deg); }
+    50% { transform: translateX(-50%) rotate(-15deg); }
+}
+
+/* ---------- Message Box ---------- */
+.message-box {
+    background: var(--cream-soft);
+    padding: 2rem;
+    border-radius: 15px;
+    margin: 2rem 0;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    border: 1px solid #ffe;
+}
+
+.message-box.hidden {
+    display: none;
+}
+
+.message-text {
+    font-size: 1.1rem;
+    color: var(--rose-red);
+    font-style: italic;
+    min-height: 1.8em;
+}
+
+/* ---------- Button ---------- */
+.send-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--cream-soft);
+    background: linear-gradient(135deg, var(--rose-red), var(--blush-pink));
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.send-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(232, 67, 147, 0.4);
+}
+
+.send-button:active {
+    transform: translateY(1px);
+}
+
+/* ---------- Petals Container (Animated Falling Petals) ---------- */
+.petals-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 100;
+}
+
+/* Falling petal animation keyframes */
+@keyframes fall {
+    0% { transform: translateY(0) rotate(var(--petal-rotate, 0deg)); opacity: 1; }
+    100% { transform: translateY(110vh) rotate(var(--petal-rotate, 0deg)); opacity: 0; }
+}
+
+/* ---------- Responsive Design ---------- */
+@media (max-width: 480px) {
+    h1 { font-size: 2rem; }
+    .rose { max-width: 150px; height: 220px; }
+    .petal { width: 20px; height: 20px; }
+    .send-button { padding: 0.8rem 1.5rem; font-size: 1rem; }
+    .message-text { font-size: 1rem; }
+}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Rose Day 🌹</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <!-- Main heading -->
+        <header>
+            <h1>Happy Rose Day 🌹</h1>
+            <p class="subtitle">A day to bloom love ❤️</p>
+        </header>
+
+        <!-- Rose garden area for petal animation -->
+        <main class="rose-garden">
+            <!-- CSS-generated rose -->
+            <div class="rose">
+                <div class="rose-base"></div>
+                <div class="rose-petals">
+                    <div class="petal"></div>
+                    <div class="petal"></div>
+                    <div class="petal"></div>
+                    <div class="petal"></div>
+                    <div class="petal"></div>
+                </div>
+                <div class="stem"></div>
+                <div class="leaf"></div>
+            </div>
+        </main>
+
+        <!-- Random message display -->
+        <section class="message-box" id="messageBox">
+            <p class="message-text">Click "Send a Rose" to receive a sweet message 💌</p>
+        </section>
+
+        <!-- Send a Rose button -->
+        <button class="send-button" id="sendButton">Send a Rose</button>
+    </div>
+
+    <!-- Petal creation element for animated falling petals -->
+    <div class="petals-container" id="petalsContainer"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
