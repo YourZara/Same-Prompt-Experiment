@@ -3,6 +3,8 @@
 One prompt. Several AI models. Four "Happy Rose Day" web pages, saved exactly as each
 model produced them, side by side for comparison.
 
+🌐 **Live gallery:** <https://yourzara.github.io/same-prompt-rose-day/>
+
 ---
 
 ## The Prompt
@@ -62,7 +64,12 @@ Each folder contains exactly what the model created — unmodified:
 
 ## How to View
 
-**Easiest — just open the gallery:**
+**Online — no download needed:**
+
+> Open the live gallery: <https://yourzara.github.io/same-prompt-rose-day/>
+> (GitHub Pages, rebuilt automatically on every push to `main`.)
+
+**Easiest — just open the gallery from a local copy:**
 
 > Double-click `index.html` (this project's gallery page). It links to every model's
 > work, with live previews and links to each folder.
