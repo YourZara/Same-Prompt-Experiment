@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     Rose Day — Same Prompt, Many Models
+     A gallery page that links to every model's output folder.
+     Pure HTML/CSS/JS. No build step: just open this file.
+     ============================================================ -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌹 Rose Day — Same Prompt, Many Models</title>
+
+  <!-- Gallery styles -->
+  <link rel="stylesheet" href="css.css">
+  <!-- Gallery logic (cards are built from the MODELS list in js.js) -->
+  <script src="js.js" defer></script>
+</head>
+<body>
+
+  <!-- Falling petals layer (created by js.js) -->
+  <div id="petals" aria-hidden="true"></div>
+
+  <header class="hero">
+    <h1>🌹 Rose Day — Same Prompt, Many Models</h1>
+    <p>
+      One identical prompt was sent to several AI models. Each result was saved,
+      untouched, in a folder named after the model. Compare them all below.
+    </p>
+    <a class="readme-link" href="README.md">📄 Read the full README (prompt &amp; rules)</a>
+  </header>
+
+  <main>
+    <!-- Cards are injected here by js.js -->
+    <section id="gallery" class="gallery" aria-label="Model results"></section>
+
+    <!-- Shown only if JavaScript is disabled -->
+    <noscript>
+      <p class="noscript-note">
+        JavaScript is off, so the cards can't be built. Open a folder directly:
+      </p>
+      <ul class="noscript-list">
+        <li><a href="./Deepseek v4.1/index.html">Deepseek v4.1/index.html</a></li>
+        <li><a href="./GLM5.3 flash free/index.html">GLM5.3 flash free/index.html</a></li>
+        <li><a href="./Nemotron Lightning/index.html">Nemotron Lightning/index.html</a></li>
+        <li><a href="./Nemotron super vl/index.html">Nemotron super vl/index.html</a></li>
+      </ul>
+    </noscript>
+  </main>
+
+  <footer class="footer">
+    <p>
+      All four outputs passed the same test: build <strong>index.html</strong>,
+      <strong>style.css</strong>, <strong>script.js</strong> — a Rose Day page with a
+      CSS/SVG rose, falling petals, and a "Send a Rose" button.
+    </p>
+  </footer>
+
+</body>
+</html>
