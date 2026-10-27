@@ -1,0 +1,324 @@
+/*
+  style.css — Festive Dashain website
+  Palette: crimson reds, marigold orange-yellow, festival gold, soft gradients
+  Font: system fonts (system-ui, Segoe UI, Ubuntu, etc.)
+  All drawings: pure CSS / inline SVG — no image files
+*/
+
+:root {
+  --crimson: #c62828;
+  --crimson-light: #ef5350;
+  --marigold: #f57f17;
+  --marigold-light: #ffb74d;
+  --gold: #d4a853;
+  --gold-light: #ffe082;
+  --saffron: #e65100;
+  --background: #fffdf5;
+  --text-primary: #2d1b10;
+  --text-secondary: #5d4037;
+  --blush: #ff8a65;
+  --deep-black: #42231a;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    "Noto Sans", sans-serif;
+  background: var(--background);
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------
+   HEADER / HERO
+   -------------------------------------------------------------- */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(at 20% 20%, rgba(255, 183, 130, 0.3) 0%, transparent 50%),
+    radial-gradient(at 80% 80%, rgba(245, 127, 23, 0.3) 0%, transparent 50%),
+    radial-gradient(at 50% 50%, rgba(198, 40, 40, 0.15) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  padding: 2rem 1rem;
+}
+
+.title {
+  font-size: clamp(3rem, 10vw, 6rem);
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  background: linear-gradient(135deg, var(--crimson), var(--crimson-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+  text-shadow: none;
+}
+
+.subtitle {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  font-weight: 400;
+}
+
+/* --------------------------------------------------------------
+   STORY SECTION
+   -------------------------------------------------------------- */
+.story {
+  padding: 4rem 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.section-title {
+  text-align: center;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  margin-bottom: 2.5rem;
+  color: var(--deep-black);
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--marigold), var(--gold));
+  border-radius: 2px;
+}
+
+.story-grid {
+  display: grid;
+  gap: 2rem;
+}
+
+@media (min-width: 700px) {
+  .story-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+.story-scene {
+  background: rgba(255, 253, 245, 0.8);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid rgba(198, 40, 40, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.story-scene:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(198, 40, 40, 0.15);
+}
+
+.scene-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--marigold), var(--marigold-light));
+  color: var(--deep-black);
+  font-weight: 700;
+  font-size: 1.1rem;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  flex-shrink: 0;
+}
+
+.story-scene h3 {
+  margin-bottom: 0.75rem;
+  color: var(--crimson);
+  font-size: 1.25rem;
+}
+
+.story-scene p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.5;
+
+/* --------------------------------------------------------------
+   INTERACTIONS SECTION
+   -------------------------------------------------------------- */
+.interactions {
+  padding: 4rem 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.interactions h2 {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  color: var(--deep-black);
+}
+
+/* Diya */
+.diya-wrapper {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  margin: 0 auto 3rem;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.diya-wrapper:active {
+  transform: scale(0.95);
+}
+
+.diya {
+  width: 100%;
+  height: 100%;
+}
+
+.diya circle {
+  transition: box-shadow 0.3s ease;
+}
+
+.diya:hover circle {
+  box-shadow: 0 0 20px rgba(255, 183, 130, 0.6);
+}
+
+.diya-text {
+  position: absolute;
+  bottom: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-top: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.diya-wrapper.light .diya-text {
+  color: var(--crimson);
+}
+
+/* Kite scene */
+.kite-scene {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.kite {
+  width: 180px;
+  height: 120px;
+  margin: 0 auto;
+}
+
+.kite-text {
+  margin-top: 0.75rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+/* Petals canvas */
+.petals-canvas {
+  position: relative;
+  height: 200px;
+  margin: 2rem auto;
+  overflow: hidden;
+}
+
+/* --------------------------------------------------------------
+   CTA BUTTON
+   -------------------------------------------------------------- */
+.cta {
+  text-align: center;
+  padding: 3rem 2rem;
+}
+
+.btn-send {
+  font-family: inherit;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 1rem 2.5rem;
+  background: linear-gradient(135deg, var(--crimson), var(--crimson-light));
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-send:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(198, 40, 40, 0.4);
+}
+
+.btn-send:active {
+  transform: scale(0.98);
+}
+
+.btn-send:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+/* --------------------------------------------------------------
+   FOOTER
+   -------------------------------------------------------------- */
+.footer {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  margin-top: 3rem;
+}
+
+/* --------------------------------------------------------------
+   RESPONSIVE: phone-first approach already above
+   -------------------------------------------------------------- */
+@media (max-width: 480px) {
+  .story-scene {
+    padding: 1.25rem;
+  }
+
+  .diya-wrapper {
+    width: 140px;
+    height: 140px;
+  }
+
+  .title {
+    font-size: clamp(2.5rem, 12vw, 4rem);
+  }
+}

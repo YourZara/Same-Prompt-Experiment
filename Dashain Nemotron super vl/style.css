@@ -1,0 +1,639 @@
+/* =========================================================================
+   Happy Dashain — style.css
+   
+   Palette: crimson reds, marigold orange-yellow, festival gold, soft gradients.
+   Fonts: system fonts only (no external files). Graphics: pure CSS + inline SVG.
+   ========================================================================= */
+
+:root {
+  /* Festival colours */
+  --crimson: #b91c1c;      /* deep festival red */
+  --crimson-dark: #7f1d1d; /* darker red for hover states */
+  --marigold: #f59e0b;     /* marigold orange-yellow */
+  --marigold-light: #fdba74;
+  --gold: #d4af37;         /* festival gold */
+  --gold-soft: #fef3c7;    /* pale gold tint */
+  --cream: #fdf7ee;        /* warm off-white for cards */
+  --ink: #2e1418;          /* near-black warm tone for headings */
+  --text: #4a2e2a;         /* body text */
+  --text-muted: #7a524a;   /* secondary text */
+  --soft-white: #fafafa;   /* greeting text on hero gradient */
+
+  /* Gradients */
+  --grad-bg: linear-gradient(
+    160deg,
+    #5b1319 0%,
+    #7f1d1d 30%,
+    #b91c1c 55%,
+    #f59e0b 100%
+  );
+  --grad-card: linear-gradient(
+    180deg,
+    rgba(255, 251, 230, 0.7),
+    rgba(253, 247, 238, 0.92)
+  );
+
+  /* Layout & motion */
+  --shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.45);
+  --radius: 26px;
+  --transition: 0.4s ease;
+
+  /* System font stack — readable, no downloads */
+  --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+}
+
+/* ---------- Base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-main);
+  color: var(--text);
+  background: var(--grad-bg);
+  background-attachment: fixed;
+  line-height: 1.6;
+  -webkit-tap-highlight-color: transparent;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0 0 12px;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+p {
+  margin: 0 0 14px;
+}
+
+a {
+  color: var(--marigold);
+}
+
+/* ---------- Falling-petal canvas (behind everything) ---------- */
+#fallCanvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* ---------- Screens ---------- */
+/* Each full-screen section is hidden by default; JS adds .active */
+.screen {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: none; /* toggled by JS */
+  align-items: center;
+  justify-content: center;
+  padding: 14px 8px;
+  text-align: center;
+}
+
+.screen.active {
+  display: flex;
+  animation: screenFadeIn 0.55s ease both;
+}
+
+@keyframes screenFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- Cards ---------- */
+.card {
+  width: 100%;
+  max-width: 440px;
+  padding: 36px 26px 44px;
+  border-radius: var(--radius);
+  background: var(--grad-card), var(--cream);
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(14px);
+  position: relative;
+  overflow: hidden;
+}
+
+.intro-card {
+  max-width: 380px;
+}
+
+.story-card,
+.tika-card,
+.finale-card {
+  max-width: 470px;
+}
+
+/* ---------- Decorative marigolds (inline SVG, float animation) ---------- */
+.floating-decoration {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  opacity: 0.8;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.35));
+  animation: float 7s ease-in-out infinite;
+}
+
+.floating-decoration:nth-child(2) {
+  animation-duration: 9s;
+  animation-delay: 1.5s;
+  opacity: 0.65;
+}
+.floating-decoration:nth-child(3) {
+  animation-duration: 8s;
+  animation-delay: 3s;
+  opacity: 0.7;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-16px) rotate(8deg);
+  }
+}
+
+/* ---------- Hero screen ---------- */
+.diya-wrap {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 18px;
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.diya-wrap:focus-visible {
+  outline: 3px solid var(--marigold-light);
+  outline-offset: 5px;
+  border-radius: 50%;
+}
+
+.diya-lamp {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Flame — off by default, glows when lit */
+.flame {
+  position: absolute;
+  top: 32px;
+  left: 50%;
+  width: 26px;
+  height: 46px;
+  transform: translateX(-50%);
+  background: var(--gold);
+  border-radius: 50% 50% 42% 42%;
+  filter: blur(3px) brightness(1.15);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  transform-origin: bottom center;
+  pointer-events: none;
+}
+
+.diya-wrap.lit .flame {
+  opacity: 1;
+  animation: flicker 2.6s ease-in-out infinite;
+  box-shadow: 0 0 22px var(--marigold-light), 0 0 45px var(--crimson);
+}
+
+@keyframes flicker {
+  0%,
+  100% {
+    transform: translateX(-50%) scaleY(1) scaleX(1);
+    opacity: 1;
+  }
+  20% {
+    transform: translateX(-50%) scaleY(0.9) scaleX(1.08);
+    opacity: 0.92;
+  }
+  40% {
+    transform: translateX(-50%) scaleY(1.06) scaleX(0.92);
+    opacity: 1;
+  }
+  60% {
+    transform: translateX(-50%) scaleY(0.96) scaleX(1.04);
+    opacity: 0.96;
+  }
+  80% {
+    transform: translateX(-50%) scaleY(1.02) scaleX(0.96);
+    opacity: 1;
+  }
+}
+
+.diya-hint {
+  position: absolute;
+  bottom: -26px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.greeting {
+  font-size: clamp(2.2rem, 9vw, 4rem);
+  font-weight: 800;
+  color: var(--soft-white);
+  margin: 6px 0 6px;
+  text-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+  letter-spacing: 1px;
+}
+
+.diya-emoji {
+  font-size: 1.15em;
+  margin-left: 8px;
+}
+
+.intro-line {
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  font-weight: 700;
+  color: var(--gold-soft);
+  margin-bottom: 4px;
+}
+
+.intro-to {
+  font-size: 0.95rem;
+  color: #e8dcc4;
+  margin-bottom: 24px;
+}
+
+.footnote {
+  font-size: 0.78rem;
+  color: #c9a866;
+  margin-top: 20px;
+  line-height: 1.5;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 26px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 800;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.12s ease, box-shadow 0.2s ease, filter 0.2s ease,
+    background 0.2s ease;
+  touch-action: manipulation;
+}
+
+.btn:active {
+  transform: scale(0.95);
+}
+
+.btn:focus-visible {
+  outline: 3px solid var(--marigold-light);
+  outline-offset: 3px;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  filter: grayscale(0.6);
+}
+
+.btn-primary {
+  background: var(--crimson);
+  color: var(--cream);
+  box-shadow: 0 10px 22px rgba(127, 29, 29, 0.5);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--crimson-dark);
+  filter: brightness(1.05);
+}
+
+/* ---------- Story screen ---------- */
+.story-progress {
+  font-size: 0.78rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+}
+
+.scenes {
+  position: relative;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 22px;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--transition);
+  padding: 0 8px;
+}
+
+.scene.active {
+  display: flex;
+  opacity: 1;
+}
+
+.scene-art {
+  width: 150px;
+  height: 140px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scene-art svg {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+}
+
+.scene-title {
+  font-size: clamp(1.25rem, 3.2vw, 1.7rem);
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.scene-text {
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  color: var(--text);
+  max-width: 360px;
+  line-height: 1.65;
+}
+
+#kiteStage {
+  cursor: pointer;
+}
+
+/* ---------- Tika reveal screen ---------- */
+.tika-title {
+  font-size: clamp(1.35rem, 3.5vw, 1.6rem);
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: var(--ink);
+}
+
+.tika-lead {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 26px;
+  max-width: 360px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+.tika-stage {
+  position: relative;
+  width: 200px;
+  height: 235px;
+  margin: 0 auto 18px;
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.tika-stage:focus-visible {
+  outline: 3px solid var(--marigold-light);
+  outline-offset: 5px;
+  border-radius: 16px;
+}
+
+.tika-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.tika-hint {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.reveal {
+  margin-top: 16px;
+  animation: revealFade 0.5s ease both;
+}
+
+@keyframes revealFade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.reveal h3 {
+  color: var(--crimson);
+  font-size: 1.25rem;
+}
+
+#tikaBlessing {
+  font-weight: 800;
+  color: var(--ink);
+  font-size: 1.05rem;
+}
+
+/* ---------- Finale screen ---------- */
+.finale-lead {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.name-label {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+  margin: 20px 0 6px;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  text-align: left;
+  max-width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.name-label input {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(212, 175, 55, 0.5);
+  background: var(--cream);
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--ink);
+  text-align: center;
+}
+
+.name-label input:focus {
+  outline: none;
+  border-color: var(--marigold);
+  background: #fffbf0;
+}
+
+.hint {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #b7945c;
+}
+
+.wish-box {
+  margin-top: 22px;
+  padding: 22px 18px;
+  border-radius: 16px;
+  background: var(--gold-soft);
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  box-shadow: inset 0 2px 8px rgba(212, 175, 55, 0.25);
+}
+
+#wishText {
+  font-weight: 800;
+  color: var(--ink);
+  font-size: clamp(1rem, 2.5vw, 1.15rem);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.finale-note {
+  font-size: 0.78rem;
+  color: #c9a866;
+  margin-top: 16px;
+  line-height: 1.5;
+}
+
+/* ---------- Celebration burst (triggered by JS) ---------- */
+.burst {
+  position: fixed;
+  pointer-events: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  z-index: 60;
+  top: 0;
+  left: 0;
+  will-change: transform, opacity;
+  transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1),
+    opacity 0.7s ease;
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  position: relative;
+  z-index: 1;
+  padding: 28px 10px 46px;
+  text-align: center;
+  color: #e8dcc4;
+  font-size: 0.85rem;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 600px) {
+  .card {
+    padding: 28px 18px 36px;
+    border-radius: 20px;
+  }
+
+  .screen {
+    padding: 10px 4px;
+  }
+
+  .greeting {
+    font-size: 2.4rem;
+  }
+
+  .diya-wrap {
+    width: 124px;
+    height: 124px;
+  }
+
+  .scene-art {
+    width: 115px;
+    height: 105px;
+  }
+
+  .tika-stage {
+    width: 172px;
+    height: 200px;
+  }
+
+  .name-label {
+    max-width: 100%;
+    text-align: center;
+  }
+  .name-label input {
+    text-align: center;
+  }
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .screen.active,
+  .floating-decoration,
+  .flame,
+  .scene,
+  .reveal,
+  .burst {
+    animation: none !important;
+    transition: none !important;
+  }
+  .scene.active {
+    opacity: 1;
+  }
+  .flame {
+    opacity: 1;
+  }
+  .btn:active {
+    transform: none;
+  }
+}

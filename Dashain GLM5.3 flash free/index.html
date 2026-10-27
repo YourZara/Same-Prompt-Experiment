@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Dashain 🪔</title>
+  <!-- Local styles only — no external assets -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Falling petals & jamara are drawn here by script.js -->
+  <div id="sky" aria-hidden="true"></div>
+
+  <!-- ===== SCENE 1: THE GREETING ===== -->
+  <section class="scene scene-hero" id="scene-hero">
+    <div class="hero-inner">
+      <!-- Inline SVG: lit diya with flame -->
+      <svg class="diya" viewBox="0 0 200 120" role="img" aria-label="A traditional oil lamp">
+        <defs>
+          <radialGradient id="flameGlow" cx="50%" cy="60%" r="55%">
+            <stop offset="0%" stop-color="#fff3b0" stop-opacity=".9"/>
+            <stop offset="70%" stop-color="#ffb703" stop-opacity=".25"/>
+            <stop offset="100%" stop-color="#ffb703" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <!-- flame -->
+        <g id="flame" class="flame">
+          <ellipse cx="100" cy="52" rx="46" ry="46" fill="url(#flameGlow)"/>
+          <path d="M100 18 C112 34 112 48 100 58 C88 48 88 34 100 18Z"
+                fill="#ffd166" stroke="#e85d04" stroke-width="1.5"/>
+        </g>
+        <!-- lamp body -->
+        <path d="M40 92 Q100 76 160 92 Q150 110 100 112 Q50 110 40 92Z" fill="#9d0208"/>
+        <path d="M40 92 Q100 76 160 92 L160 96 Q100 82 40 96Z" fill="#d00000" opacity=".6"/>
+      </svg>
+
+      <h1 class="greet">Happy <span>Dashain</span> 🪔</h1>
+      <p class="warm">Wishing you joy, family, and blessings this festive season —
+        may light win over every shadow in your life.</p>
+
+      <!-- Interactive: click the diya to light it -->
+      <button class="ghost-btn" id="lightDiya" type="button">🪔 Light the Diya</button>
+    </div>
+    <div class="scroll-cue" aria-hidden="true">▾ scroll to begin the story</div>
+  </section>
+
+  <!-- ===== THE STORY, told scene by scene ===== -->
+
+  <!-- SCENE 2: RAMAYAN / victory of good over evil -->
+  <section class="scene" id="scene-1">
+    <div class="card">
+      <span class="chapter">Chapter One · The Victory</span>
+      <h2>Good Conquers Evil</h2>
+      <p>Dashain begins with the oldest story of light defeating darkness —
+        the fifteen days of the great battle, ending on the tenth day, <em>Vijaya Dashami</em>,
+        the day of victory. It reminds us that patience, courage, and goodness
+        outlast any mighty sorrow.</p>
+      <button class="ghost-btn canon-btn" type="button">✨ Reveal the Victory</button>
+      <div class="reveal canon-reveal" aria-live="polite"></div>
+      <!-- SVG of a rising sun of victory drawn with CSS/SVG -->
+      <svg class="art" viewBox="0 0 320 120" aria-hidden="true">
+        <circle cx="160" cy="130" r="60" fill="#ffb703"/>
+        <g stroke="#fd9e02" stroke-width="3" opacity=".5">
+          <line x1="160" y1="18" x2="160" y2="4"/><line x1="60" y1="130" x2="40" y2="130"/>
+          <line x1="260" y1="130" x2="280" y2="130"/><line x1="90" y1="70" x2="76" y2="56"/>
+          <line x1="230" y1="70" x2="244" y2="56"/>
+        </g>
+        <rect x="0" y="108" width="320" height="30" fill="#3a0ca3" opacity=".25"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- SCENE 3: Tika & Jamara — blessing from elders -->
+  <section class="scene" id="scene-2">
+    <div class="card">
+      <span class="chapter">Chapter Two · The Blessing</span>
+      <h2>Tika &amp; Jamara</h2>
+      <p>On Dashami you bow to your elders and receive a <strong>rice-dipped red tika</strong> —
+        each grain a prayer for your long life — and a sprig of <strong>yellow jamara</strong>,
+        grown in darkness and brought to light for umbilical-style freshness of hope.
+        Elders change your bag with their love, not gold.</p>
+      <button class="ghost-btn tika-btn" type="button">🧡 Receive Your Tika</button>
+      <div class="reveal tika-reveal" aria-live="polite">
+        <!-- SVG tika mark appears here -->
+        <svg class="tikamark" viewBox="0 0 120 140" aria-hidden="true">
+          <path d="M60 10 C78 34 78 58 60 78 C42 58 42 34 60 10Z" fill="#d00000"/>
+          <rect x="52" y="80" width="16" height="34" rx="8" fill="#e85d04"/>
+          <circle cx="60" cy="126" r="7" fill="#c1121f"/>
+        </svg>
+        <p class="blessing">"May every step you take lead to light." 🙏</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCENE 4: Ping / bamboo swing — childhood joy -->
+  <section class="scene" id="scene-3">
+    <div class="card">
+      <span class="chapter">Chapter Three · The Swing</span>
+      <h2>The Ping</h2>
+      <p>In every village square a bamboo swing rises — the <em>ping</em>.
+        Children swing higher and higher, and elders remember the smell of the earth
+        after the monsoon. Dashain is that feeling: <strong>to be carried awhile, and to return smiling</strong>.</p>
+      <button class="ghost-btn ping-btn" type="button">🎋 Take a Swing</button>
+      <div class="ping-stage">
+        <!-- SVG bamboo swing -->
+        <svg class="ping" viewBox="0 0 240 220" aria-hidden="true">
+          <g stroke="#606c38" stroke-width="8" stroke-linecap="round">
+            <line x1="50" y1="20" x2="24" y2="200"/><line x1="190" y1="20" x2="216" y2="200"/>
+            <line x1="50" y1="20" x2="190" y2="20"/>
+          </g>
+          <g class="seat" stroke="#809f4c" stroke-width="5">
+            <line x1="94" y1="30" x2="88" y2="110"/><line x1="146" y1="30" x2="152" y2="110"/>
+            <line x1="84" y1="112" x2="156" y2="112" stroke-width="10" stroke-linecap="round"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SCENE 5: FINAL PERSONALIZED WISH + SHUFFLE ===== -->
+  <section class="scene scene-finale" id="scene-4">
+    <div class="card finale-card">
+      <span class="chapter">Final Chapter · For You</span>
+      <h2 id="finaleTitle">Dear Guest,</h2>
+      <!-- Editable receiver of the wish -->
+      <form id="wishForm" autocomplete="off">
+        <label for="nameInput">Who should this wish go to?</label>
+        <input id="nameInput" type="text" maxlength="24" placeholder="e.g. Sita, Ama, Bhai…" />
+      </form>
+      <p class="final-wish" id="finalWish" aria-live="polite">
+        May Dashain fill your home with laughter, tika on your forehead,
+        jamara at your door, and courage in your heart. 🪔
+      </p>
+      <div class="btn-row">
+        <button class="hero-btn" id="sendWish" type="button">🎊 Send a Dashain Wish</button>
+      </div>
+      <p class="tip">Tap the button for a new blessing each time.</p>
+    </div>
+    <footer>Made with 🧡 for Dashain — Happy Vijaya Dashami!</footer>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>

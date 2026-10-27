@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Dashain 🪔</title>
+  <meta name="description" content="An interactive Happy Dashain greeting: a story of good over evil, tika and jamara, with a diya to light and wishes to send.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Falling marigold petals & jamara — drawn with canvas, no image files -->
+  <canvas id="fallCanvas" aria-hidden="true"></canvas>
+
+  <div id="app">
+
+    <!-- ================= SCREEN 1: INTRO / HERO ================= -->
+    <section class="screen active" id="screen-intro">
+      <div class="card intro-card">
+        <!-- Decorative marigolds drawn purely with inline SVG -->
+        <svg class="floating-decoration" style="--i:1" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="3" fill="#fbbf24"/>
+          <circle cx="12" cy="6.5" r="2.6" fill="#f59e0b"/>
+          <circle cx="17.5" cy="12" r="2.6" fill="#f59e0b"/>
+          <circle cx="12" cy="17.5" r="2.6" fill="#f59e0b"/>
+          <circle cx="6.5" cy="12" r="2.6" fill="#f59e0b"/>
+        </svg>
+        <svg class="floating-decoration" style="--i:2" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="3" fill="#fbbf24"/>
+          <circle cx="12" cy="6.5" r="2.6" fill="#f59e0b"/>
+          <circle cx="17.5" cy="12" r="2.6" fill="#f59e0b"/>
+          <circle cx="12" cy="17.5" r="2.6" fill="#f59e0b"/>
+          <circle cx="6.5" cy="12" r="2.6" fill="#f59e0b"/>
+        </svg>
+        <svg class="floating-decoration" style="--i:3" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="3" fill="#fbbf24"/>
+          <circle cx="12" cy="6.5" r="2.6" fill="#f59e0b"/>
+          <circle cx="17.5" cy="12" r="2.6" fill="#f59e0b"/>
+          <circle cx="12" cy="17.5" r="2.6" fill="#f59e0b"/>
+          <circle cx="6.5" cy="12" r="2.6" fill="#f59e0b"/>
+        </svg>
+
+        <!-- Interactive diya (oil lamp) — click/tap to light the flame -->
+        <div class="diya-wrap" id="diyaWrap" role="button" tabindex="0" aria-pressed="false" aria-label="Light the diya">
+          <svg class="diya-lamp" viewBox="0 0 140 140" aria-hidden="true">
+            <defs>
+              <radialGradient id="flameGrad" cx="50%" cy="35%" r="60%">
+                <stop offset="0%" stop-color="#fff7e0"/>
+                <stop offset="50%" stop-color="#ffd166"/>
+                <stop offset="100%" stop-color="#f59e0b"/>
+              </radialGradient>
+            </defs>
+            <!-- Lamp body -->
+            <path d="M 35 90 Q 70 102 105 90 L 105 70 Q 70 52 35 70 Z" fill="#c2410c" stroke="#8b2e0e" stroke-width="3" stroke-linejoin="round"/>
+            <path d="M 40 82 Q 70 94 100 82 L 100 72 Q 70 60 40 72 Z" fill="#f59e0b"/>
+            <path d="M 60 72 Q 70 64 80 72" fill="none" stroke="#c2410c" stroke-width="2" stroke-linecap="round"/>
+            <!-- Wick -->
+            <rect x="68" y="48" width="4" height="14" fill="#5d4037" rx="1"/>
+          </svg>
+          <div class="flame" id="flame"></div>
+          <span class="diya-hint" id="diyaHint">Tap to light the diya 🪔</span>
+        </div>
+
+        <h1 class="greeting">Happy Dashain <span class="diya-emoji">🪔</span></h1>
+        <p class="intro-line">A festival of light, blessings, and the victory of good over evil.</p>
+        <p class="intro-to">Prepared with warmth, for someone very special.</p>
+
+        <button class="btn btn-primary" id="enterBtn">Begin the Story →</button>
+        <p class="footnote">Tap the diya to light it · Marigold petals &amp; jamara fall gently around you</p>
+      </div>
+    </section>
+
+    <!-- ================= SCREEN 2: THE STORY (scene by scene) ================= -->
+    <section class="screen" id="screen-story">
+      <div class="card story-card">
+        <div class="story-progress"><span id="sceneCount">1</span> / <span id="sceneTotal">5</span></div>
+
+        <div class="scenes" id="scenes">
+
+          <!-- Scene 1: Victory of good over evil -->
+          <div class="scene active" id="scene-1">
+            <div class="scene-art" aria-hidden="true">
+              <svg viewBox="0 0 200 200">
+                <defs>
+                  <linearGradient id="trishulGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#f59e0b"/>
+                    <stop offset="100%" stop-color="#d4af37"/>
+                  </linearGradient>
+                </defs>
+                <!-- Trishul (symbol of Durga's power) -->
+                <path d="M 100 30 L 90 175 M 100 30 L 62 95 M 100 30 L 138 95" stroke="url(#trishulGrad)" stroke-width="6" stroke-linecap="round"/>
+                <!-- Durga (simplified, joyful) -->
+                <circle cx="100" cy="106" r="26" fill="#fcd5b3" stroke="#e8ad7a" stroke-width="2"/>
+                <path d="M 72 142 Q 100 60 128 142 Q 128 172 100 182 Q 72 172 72 142 Z" fill="#b91c1c"/>
+                <circle cx="93" cy="100" r="2.5" fill="#5d4037"/>
+                <circle cx="107" cy="100" r="2.5" fill="#5d4037"/>
+                <path d="M 94 112 Q 100 118 106 112" fill="none" stroke="#5d4037" stroke-width="2" stroke-linecap="round"/>
+                <path d="M 86 126 Q 100 134 114 126" fill="none" stroke="#8d5a4c" stroke-width="2.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h2 class="scene-title">The Victory of Good Over Evil</h2>
+            <p class="scene-text">Long ago, the demon Mahishasura spread fear across heaven and earth. The gods combined their power and created Goddess Durga — radiant, fearless, riding a lion. For nine nights they battled, and on the tenth day — <strong>Vijaya Dashami</strong> — good triumphed over evil. Dashain celebrates the light within us conquering the darkness.</p>
+          </div>
+
+          <!-- Scene 2: Jamara -->
+          <div class="scene" id="scene-2">
+            <div class="scene-art" aria-hidden="true">
+              <svg viewBox="0 0 200 200">
+                <path d="M 88 200 Q 82 125 92 65" fill="none" stroke="#84cc16" stroke-width="8" stroke-linecap="round"/>
+                <path d="M 100 200 Q 100 110 106 55" fill="none" stroke="#65a30d" stroke-width="8" stroke-linecap="round"/>
+                <path d="M 112 200 Q 118 130 108 70" fill="none" stroke="#84cc16" stroke-width="8" stroke-linecap="round"/>
+                <path d="M 94 200 Q 94 145 100 100" fill="none" stroke="#65a30d" stroke-width="6" stroke-linecap="round" opacity="0.6"/>
+                <circle cx="100" cy="32" r="10" fill="#f59e0b" stroke="#d4af37" stroke-width="2"/>
+                <circle cx="100" cy="32" r="4" fill="#fef3c7"/>
+              </svg>
+            </div>
+            <h2 class="scene-title">Jamara — The Seed of New Life</h2>
+            <p class="scene-text">Before the festival, families sow maize and barley seeds in a dark corner of the home. By the tenth day they sprout into golden grass called <strong>jamara</strong>. A living promise: from small seeds, with care and time, grows prosperity and new beginnings.</p>
+          </div>
+
+          <!-- Scene 3: Tika -->
+          <div class="scene" id="scene-3">
+            <div class="scene-art" aria-hidden="true">
+              <svg viewBox="0 0 200 200">
+                <!-- Tika bowl -->
+                <ellipse cx="100" cy="132" rx="48" ry="20" fill="#5d4037"/>
+                <ellipse cx="100" cy="124" rx="44" ry="12" fill="#8d5a4c"/>
+                <circle cx="100" cy="86" r="15" fill="#b91c1c"/>
+                <rect x="93" y="80" width="4" height="7" fill="#fff3c4" rx="1"/>
+                <rect x="100" y="78" width="4" height="7" fill="#fff3c4" rx="1"/>
+                <rect x="107" y="80" width="4" height="7" fill="#fff3c4" rx="1"/>
+                <!-- Jamara sprig -->
+                <path d="M 60 140 Q 48 115 52 88" fill="none" stroke="#84cc16" stroke-width="6" stroke-linecap="round"/>
+                <path d="M 140 140 Q 152 115 148 88" fill="none" stroke="#84cc16" stroke-width="6" stroke-linecap="round"/>
+                <path d="M 100 132 Q 100 90 100 60" fill="none" stroke="#c2410c" stroke-width="5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h2 class="scene-title">Tika — The Elder's Blessing</h2>
+            <p class="scene-text">On Vijaya Dashami, elders mix rice, yogurt, and vermilion into <strong>tika</strong>, place it on the foreheads of their loved ones, and tuck jamara behind their ears. It is more than a mark — it is a blessing of long life, strength, protection, and love passed from generation to generation.</p>
+          </div>
+
+          <!-- Scene 4: Kites, swings, togetherness -->
+          <div class="scene" id="scene-4">
+            <div class="scene-art" aria-hidden="true" id="kiteStage">
+              <svg viewBox="0 0 200 200">
+                <!-- Bamboo swing (ping) -->
+                <path d="M 50 42 Q 100 6 150 42" fill="none" stroke="#5d4037" stroke-width="6" stroke-linecap="round"/>
+                <line x1="94" y1="42" x2="94" y2="98" stroke="#5d4037" stroke-width="3" stroke-linecap="round"/>
+                <line x1="106" y1="42" x2="106" y2="98" stroke="#5d4037" stroke-width="3" stroke-linecap="round"/>
+                <rect x="86" y="98" width="28" height="11" rx="4" fill="#d4af37" stroke="#b45309" stroke-width="1.5"/>
+                <!-- Kite -->
+                <path id="kite" d="M 132 48 L 162 80 L 132 112 L 102 80 Z" fill="#f59e0b" stroke="#b91c1c" stroke-width="3" cursor="pointer"/>
+                <path d="M 132 112 Q 100 150 152 172" fill="none" stroke="#b91c1c" stroke-width="2" stroke-linecap="round"/>
+                <line x1="136" y1="120" x2="144" y2="132" stroke="#b91c1c" stroke-width="1.5" opacity="0.6"/>
+                <line x1="128" y1="124" x2="136" y2="136" stroke="#b91c1c" stroke-width="1.5" opacity="0.6"/>
+              </svg>
+            </div>
+            <h2 class="scene-title">Kites, Swings &amp; Togetherness</h2>
+            <p class="scene-text">Skies fill with kites, bamboo swings (<strong>ping</strong>) creak with laughter, homes wear new clothes, and families gather for feasts. Old disagreements are forgiven, doors open to guests, and the whole country celebrates as one big family.</p>
+          </div>
+
+          <!-- Scene 5: Light that stays -->
+          <div class="scene" id="scene-5">
+            <div class="scene-art" aria-hidden="true">
+              <svg viewBox="0 0 200 170">
+                <!-- Three diyas -->
+                <g transform="translate(40, 20)">
+                  <path d="M 20 80 Q 40 92 60 80 L 60 60 Q 40 40 20 60 Z" fill="#c2410c" stroke="#8b2e0e" stroke-width="2"/>
+                  <path d="M 24 74 Q 40 84 56 74 L 56 66 Q 40 58 24 66 Z" fill="#f59e0b"/>
+                  <rect x="38" y="46" width="4" height="12" fill="#5d4037"/>
+                  <circle cx="40" cy="44" r="6" fill="#ffd166"/>
+                </g>
+                <g transform="translate(100, 10)">
+                  <path d="M 20 90 Q 40 102 60 90 L 60 70 Q 40 50 20 70 Z" fill="#c2410c" stroke="#8b2e0e" stroke-width="2"/>
+                  <path d="M 24 84 Q 40 94 56 84 L 56 76 Q 40 68 24 76 Z" fill="#f59e0b"/>
+                  <rect x="38" y="56" width="4" height="12" fill="#5d4037"/>
+                  <circle cx="40" cy="54" r="6" fill="#ffd166"/>
+                </g>
+                <g transform="translate(160, 25)">
+                  <path d="M 20 75 Q 40 87 60 75 L 60 55 Q 40 35 20 55 Z" fill="#c2410c" stroke="#8b2e0e" stroke-width="2"/>
+                  <path d="M 24 69 Q 40 79 56 69 L 56 61 Q 40 53 24 61 Z" fill="#f59e0b"/>
+                  <rect x="38" y="41" width="4" height="12" fill="#5d4037"/>
+                  <circle cx="40" cy="39" r="6" fill="#ffd166"/>
+                </g>
+              </svg>
+            </div>
+            <h2 class="scene-title">A Light That Stays With You</h2>
+            <p class="scene-text">Like a diya that keeps burning through the night, may the spirit of Dashain stay with you — Durga's courage, the harvest's joy, and the warmth of blessings from those who love you.</p>
+          </div>
+
+        </div>
+
+        <button class="btn" id="nextSceneBtn">Next Scene →</button>
+      </div>
+    </section>
+
+    <!-- ================= SCREEN 3: TIKA &amp; BLESSING REVEAL ================= -->
+    <section class="screen" id="screen-tika">
+      <div class="card tika-card">
+        <h2 class="tika-title">Apply Tika &amp; Receive a Blessing</h2>
+        <p class="tika-lead">On Vijaya Dashami, elders place tika on the forehead and offer jamara — a blessing of long life, strength, and protection.</p>
+
+        <div class="tika-stage" id="tikaStage" role="button" tabindex="0" aria-pressed="false" aria-label="Apply tika to the forehead">
+          <svg class="tika-svg" viewBox="0 0 200 240" aria-hidden="true">
+            <defs>
+              <radialGradient id="skinGrad" cx="40%" cy="30%" r="60%">
+                <stop offset="0%" stop-color="#fcd5b3"/>
+                <stop offset="100%" stop-color="#e8ad7a"/>
+              </radialGradient>
+            </defs>
+            <!-- Hair -->
+            <path d="M 38 80 Q 100 30 162 80 L 162 112 Q 100 60 38 112 Z" fill="#3e2723"/>
+            <!-- Face -->
+            <circle cx="100" cy="134" r="48" fill="url(#skinGrad)" stroke="#d48a62" stroke-width="2"/>
+            <!-- Forehead target -->
+            <circle id="forehead" cx="100" cy="100" r="14" fill="none" stroke="#b91c1c" stroke-width="2.5" opacity="0.5"/>
+            <!-- Tika dot (hidden until applied) -->
+            <circle id="tikaDot" cx="100" cy="100" r="12" fill="#b91c1c" opacity="0"/>
+            <!-- Rice grains (hidden until applied) -->
+            <rect id="rice1" x="93" y="94" width="4" height="7" fill="#fff3c4" opacity="0" rx="1"/>
+            <rect id="rice2" x="100" y="92" width="4" height="7" fill="#fff3c4" opacity="0" rx="1"/>
+            <rect id="rice3" x="107" y="94" width="4" height="7" fill="#fff3c4" opacity="0" rx="1"/>
+            <!-- Jamara sprig behind ear (hidden until applied) -->
+            <path id="jamaraSprig" d="M 60 136 Q 46 116 50 90" fill="none" stroke="#84cc16" stroke-width="5" stroke-linecap="round" opacity="0"/>
+            <!-- Face features -->
+            <path d="M 88 128 Q 100 136 112 128" fill="none" stroke="#8d5a4c" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="92" cy="122" r="2.5" fill="#5d4037"/>
+            <circle cx="108" cy="122" r="2.5" fill="#5d4037"/>
+          </svg>
+          <span class="tika-hint" id="tikaHint">Tap the forehead to apply tika 🔴</span>
+        </div>
+
+        <div id="tikaReveal" class="reveal hidden">
+          <h3>Tika Applied 🪔</h3>
+          <p id="tikaBlessing">May you be blessed with long life, courage, and joy — this Dashain and always.</p>
+        </div>
+
+        <button class="btn btn-primary" id="toFinaleBtn" disabled>Proceed to Your Final Wish →</button>
+      </div>
+    </section>
+
+    <!-- ================= SCREEN 4: FINALE / PERSONALIZED WISH ================= -->
+    <section class="screen" id="screen-finale">
+      <div class="card finale-card">
+        <h2 id="finaleHead">Your Dashain Wish</h2>
+        <p class="finale-lead">Send yourself — or someone you love — a fresh Dashain blessing.</p>
+
+        <label class="name-label">
+          Your name
+          <input type="text" id="recipientName" value="Friend" placeholder="Friend" maxlength="24" aria-describedby="nameHint">
+          <span id="nameHint" class="hint">Leave as-is, or type a name</span>
+        </label>
+
+        <button class="btn btn-primary" id="sendWishBtn">Send a Dashain Wish</button>
+
+        <div id="wishBox" class="wish-box hidden" aria-live="polite">
+          <p id="wishText"></p>
+        </div>
+        <p class="finale-note">Every click sends a new random blessing — with a celebratory burst of marigold petals 💐🪔</p>
+      </div>
+    </section>
+
+  </div>
+
+  <footer class="site-footer">
+    <p>Happy Dashain 🪔 — Victory of good over evil. Joy, prosperity, and togetherness.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

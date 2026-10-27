@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Dashain 🪔</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Main container -->
+  <main class="container">
+
+    <!-- ============================================================
+         SECTION 1: FIRST SCREEN — BIG GREETING + WARM WELCOME
+    ============================================================ -->
+    <section class="hero">
+      <div class="hero-inner">
+        <h1 class="title">Happy Dashain 🪔</h1>
+        <p class="subtitle">A festival of light, love, and victory</p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 2: THE STORY — scene by scene
+    ============================================================ -->
+    <section class="story">
+      <h2 class="section-title">The Story of Dashain</h2>
+      <div class="story-grid">
+        <!-- Scene 1 -->
+        <div class="story-scene">
+          <div class="scene-number">1</div>
+          <h3>Victory of Good Over Evil</h3>
+          <p>
+            Long ago, the gods battled the demon Mahishasura. After nine nights
+            of fierce fight, Goddess Durga emerged victorious. Dashain marks that
+            divine triumph — light overpowering darkness.
+          </p>
+        </div>
+        <!-- Scene 2 -->
+        <div class="story-scene">
+          <div class="scene-number">2</div>
+          <h3>Tika and Jamara</h3>
+          <p>
+            Elders bless the younger with <strong>tika</strong> (a mixture of rice,
+            yogurt and vermilion) and <strong>jamara</strong> (young barley shoots).
+            The tika marks the forehead, the jamara sprouts from the earth —
+            a living symbol of growth, protection and ancestral love.
+          </p>
+        </div>
+        <!-- Scene 3 -->
+        <div class="story-scene">
+          <div class="scene-number">3</div>
+          <h3>Family reunion</h3>
+          <p>
+            People travel from near and far to come home. Sisters put tika on
+            brothers' foreheads, families share feasts, and every heart overflows
+            with gratitude. The bamboo swing (<em>ping</em>) sways, and kites
+            fill the sky.
+          </p>
+        </div>
+        <!-- Scene 4 -->
+        <div class="story-scene">
+          <div class="scene-number">4</div>
+          <h3>Lighting the diya</h3>
+          <p>
+            Each evening, a diya (oil lamp) is lit to welcome prosperity and
+            ward off darkness. Its flame whispers: hope endures, day follows night.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 3: INTERACTIVE EXPERIENCE
+    ============================================================ -->
+    <section class="interactions">
+      <h2 class="section-title">Festival Interactions</h2>
+
+      <!-- Diya that lights up on click -->
+      <div class="diya-wrapper" id="diyaWrapper">
+        <svg class "diya" viewBox="0 0 100 100" aria-label="Diya oil lamp">
+          <circle cx="50" cy="70" r="30" fill="#ffb400" stroke="#e68a00" stroke-width="3"/>
+          <ellipse cx="50" cy="40" rx="40" ry="15" fill="#8b4513"/>
+          <line x1="50" y1="70" x2="50" y2="20" stroke="#ff6b6b" stroke-width="4"/>
+          <circle cx="50" cy="18" r="8" fill="#fff" stroke="#ff6b6b" stroke-width="2"/>
+          <circle cx="42" cy="16" r="4" fill="#fff"/>
+          <circle cx="58" cy="16" r="4" fill="#fff"/>
+        </svg>
+        <p class="diya-text">Click to light the diya</p>
+      </div>
+
+      <!-- Falling petals canvas -->
+      <div class="petals-canvas" id="petalsCanvas"></div>
+
+      <!-- Kite / ping moment -->
+      <div class="kite-scene" id="kiteScene">
+        <svg class="kite" viewBox="0 0 200 120" aria-label="Kite flying high">
+          <polygon points="100,20 150,80 100,100 50,80"
+            fill="#e53935" stroke="#c62828" stroke-width="2"/>
+          <line x1="100" y1="20" x2="100" y2="0" stroke="#fff" stroke-width="3"/>
+          <line x1="50" y1="80" x2="20" y2="50" stroke="#fff" stroke-width="2"/>
+          <line x1="150" y1="80" x2="180" y2="50" stroke="#fff" stroke-width="2"/>
+        </svg>
+        <p class="kite-text">Fly a kite, chase the sky</p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 4: SEND A DASHAIN WISH BUTTON
+    ============================================================ -->
+    <section class="cta">
+      <button class="btn-send" id="sendWishBtn">
+        Send a Dashain Wish
+      </button>
+    </section>
+
+  </main>
+
+  <!-- Copyright / footer -->
+  <footer class="footer">
+    <p>With 🪔 for a joyous Dashain</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
