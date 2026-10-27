@@ -163,29 +163,33 @@ Round 2 — Dashain:
 
 ## Automation
 
-Running another test doesn't need to be done by hand. Three files automate the loop:
+Running another test doesn't need to be done by hand. All tooling lives in
+a **local-only** folder — `Opencode Automation/` — which is gitignored, so it
+never pollutes the repo. Test outputs still land in the project root.
 
-- **`prompt.txt`** — the prompt above as a single source of truth
-- **`run-test.sh`** — starts one `opencode run` session per model inside its own
-  fresh folder. (`--auto` keeps unattended runs from stalling on permission
-  prompts; the strict rules inside the prompt still confine the agent to that folder.)
-- **`update-gallery.py`** — after a run, appends the model to the gallery
-  (`MODELS` array in `js.js`), the README table, and the `index.html` no-JS list.
+- **`prompt.txt` / `prompt-<theme>.txt`** — the per-round prompt, single source of truth
+- **`models-<theme>.txt`** — one `Folder Name|provider/model` pair per line
+- **`run-test.sh`** — one `opencode run` session per model inside its own fresh
+  output folder (`--auto` keeps unattended runs from stalling on permission
+  prompts; the strict rules inside the prompt still confine the agent)
+- **`update-gallery.py`** — appends the model to the gallery (`ROUNDS` + `MODELS`
+  in `js.js`), the matching README round table, and the `index.html` no-JS list.
   Idempotent — running it twice changes nothing.
 
-**Commands:**
+**Commands** (from inside `Opencode Automation/`):
 
 ```bash
-opencode models                                    # list model ids (format: provider/model)
+opencode models                                       # list ids (provider/model)
 
-./run-test.sh "Model Name" provider/model          # run one test
-./run-test.sh --auto-commit "Name" provider/model  # run + patch gallery/README + push
-./run-test.sh --batch models.txt                   # lines: Folder Name|provider/model
-./run-test.sh --update-only "Model Name"           # patch gallery+README for an existing folder
-./run-test.sh --dry "Model Name" provider/model    # preview commands, run nothing
+./run-test.sh "Model Name" provider/model             # one test
+./run-test.sh --batch models-<theme>.txt              # whole round
+./run-test.sh --auto-commit --round-id <theme> \
+  --round-title "Round N · Name" --batch models-<theme>.txt   # run + patch + push
+./run-test.sh --update-only "Model Name" --round-id <theme>  # patch existing folder
+./run-test.sh --dry --batch models-<theme>.txt        # preview, zero quota
 ```
 
 `--auto-commit` makes two atomic commits per test — `chore:` for the model's
 files, `feat:` for the gallery/README patch — scans the staged diff for
 secret-like patterns, then pushes. Without the flag, finish a test with
-`./run-test.sh --update-only "Model Name"`.
+`./run-test.sh --update-only "Model Name" --round-id <theme>`.
