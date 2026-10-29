@@ -1,5 +1,5 @@
 /* ============================================================
-   js.js — gallery logic for the Rose Day model-test page
+   js.js — gallery logic for the model-comparison page
    1) Builds one card per model folder (list below).
    2) Adds soft falling petals behind the gallery.
 
@@ -13,8 +13,8 @@
  * and add one entry here: folder name and the files it made. */
 /* Round definitions: one heading + card grid per round. */
 const ROUNDS = [
-  { id: "rose-day", title: "Round 1 · Rose Day",  emoji: "🌹" },
-  { id: "dashain",  title: "Round 2 · Dashain",   emoji: "🪔" },
+  { id: "rose-day", title: "Round 1 · Greeting-page task" },
+  { id: "dashain",  title: "Round 2 · Story-page task"   },
 ];
 
 /* The list of tested models. Each entry carries the round it ran in. */
@@ -75,7 +75,7 @@ function makeCard(model, i) {
   openBtn.href = `./${folderURI}/index.html`;
   openBtn.target = "_blank";
   openBtn.rel = "noopener noreferrer";
-  openBtn.textContent = model.round === "dashain" ? "🪔 Open Page" : "🌹 Open Page";
+  openBtn.textContent = "Open Page";
 
   actions.append(filesBtn, openBtn);
 
@@ -97,7 +97,7 @@ function buildGallery() {
 
     const title = document.createElement("h3");
     title.className = "round-title";
-    title.textContent = `${round.emoji} ${round.title}`;
+    title.textContent = round.title;
 
     const grid = document.createElement("div");
     grid.className = "grid";

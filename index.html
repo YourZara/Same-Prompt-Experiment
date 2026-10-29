@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- ============================================================
-     Same Prompt, Many Models — two rounds (Rose Day, Dashain)
+     Same Prompt, Many Models — two rounds (a greeting task, a story task)
      A gallery page that links to every model's output folder.
      Pure HTML/CSS/JS. No build step: just open this file.
      ============================================================ -->
@@ -8,7 +8,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🌹🪔 Same Prompt, Many Models</title>
+  <title>Same Prompt, Many Models — Multi-Model Prompt Experiment</title>
+  <meta name="description" content="One identical prompt sent to the same four AI models in two rounds — raw, unmodified HTML/CSS/JS outputs compared side by side.">
+  <link rel="canonical" href="https://yourzara.github.io/Same-Prompt-Experiment/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Same Prompt, Many Models — Multi-Model Prompt Experiment">
+  <meta property="og:description" content="One identical prompt sent to the same four AI models in two rounds — raw, unmodified HTML/CSS/JS outputs compared side by side.">
+  <meta property="og:url" content="https://yourzara.github.io/Same-Prompt-Experiment/">
 
   <!-- Gallery styles -->
   <link rel="stylesheet" href="css.css">
@@ -21,14 +27,14 @@
   <div id="petals" aria-hidden="true"></div>
 
   <header class="hero">
-    <h1>🌹🪔 Same Prompt, Many Models</h1>
+    <h1>Same Prompt, Many Models</h1>
     <p>
       Identical prompts were sent to the same four AI models in two rounds:
-      <strong>Round 1 — Rose Day 🌹</strong> and <strong>Round 2 — Dashain 🪔</strong>.
+      <strong>Round 1 — a greeting-page task</strong> and <strong>Round 2 — an interactive story-page task</strong>.
       Each result was saved, untouched, in a folder named after the test and model.
       Pick a round below and compare.
     </p>
-    <a class="readme-link" href="README.md">📄 Read the full README (both prompts &amp; rules)</a>
+    <a class="readme-link" href="https://github.com/YourZara/Same-Prompt-Experiment#readme">📄 Read the full README (both prompts &amp; rules)</a>
   </header>
 
   <main>
@@ -57,8 +63,8 @@
     <p>
       Both rounds shared the same rules and the same file trio
       (<strong>index.html</strong>, <strong>style.css</strong>, <strong>script.js</strong>).
-      Round 1 asked for a Rose Day page; Round 2 asked for an interactive,
-      story-driven Dashain greeting — only the task changed between rounds.
+      Round 1 asked for a festive greeting page; Round 2 asked for an interactive,
+      story-driven page — only the task changed between rounds.
     </p>
   </footer>
 
