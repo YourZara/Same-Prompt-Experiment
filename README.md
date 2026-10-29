@@ -1,16 +1,58 @@
-# 🌹🪔 Same Prompt, Many Models — Two Rounds
+<div align="center">
 
-Two identical prompts, one set of AI models. **Round 1** built "Happy Rose Day"
-pages; **Round 2** built interactive, story-driven "Happy Dashain" greetings.
-Eight results, saved exactly as each model produced them, side by side.
+# Same-Prompt-Experiment
 
-🌐 **Live gallery:** <https://yourzara.github.io/same-prompt-rose-day/>
+### One identical prompt, multiple AI models — raw outputs, side by side.
+
+[![Live Gallery](https://img.shields.io/badge/Live_Gallery-Browse_Results-2088FF?style=flat-square&logo=githubpages&logoColor=white)](https://yourzara.github.io/Same-Prompt-Experiment/)
+[![Outputs](https://img.shields.io/badge/Model_Output-Unmodified,_As_Produced-00E676?style=flat-square)](#results)
+[![Method](https://img.shields.io/badge/Method-Identical_Prompt_Per_Round-9146FF?style=flat-square)](#method)
+
+</div>
 
 ---
 
-## Round 1 · The Rose Day Prompt
+## What This Repo Is
 
-Every model received the **exact same prompt**:
+A controlled prompt experiment: several AI models receive **byte-identical instructions** to build the same self-contained web page, and their outputs are preserved exactly as produced for fair side-by-side inspection.
+
+The prompt *theme* is only payload — what is actually being compared is how each model:
+
+- scaffolds a project and structures code,
+- follows hard constraints (scope, self-containment, no external resources),
+- handles interactivity and responsiveness with no libraries and no image assets.
+
+So far it covers two rounds: a **greeting-page task** (Round 1) and a **story-driven festival-page task** (Round 2). Both remain in the repo as named rounds so the historical record stays intact.
+
+🌐 **Live gallery:** <https://yourzara.github.io/Same-Prompt-Experiment/>
+
+---
+
+## Method
+
+Every run is bound by the same rules, stated inside the prompt itself:
+
+- The model works **only inside its own sandbox folder** — no reading, listing, or modifying anything outside it.
+- No external resources: system fonts only, graphics drawn with pure CSS or inline SVG, no image files.
+- The output must run by simply opening `index.html` in a browser — no build step, install, or server.
+- Outputs are committed to the repo **untouched**: no fixes, no cleanup, no prompt re-tuning per model.
+
+The full prompts are recorded verbatim below, since they are the ground truth of the experiment.
+
+### Test Rig (local-only, gitignored)
+
+The `Opencode Automation/` folder (not part of the repo) drives the runs:
+
+- `run-test.sh` launches one `opencode run` session per model inside its own fresh output folder; `--auto` keeps unattended runs from stalling on permission prompts (the strict rules inside the prompt still confine the agent).
+- `update-gallery.py` appends the model's output to the gallery, README tables, and no-JS list — idempotent.
+
+See [Automation](#automation) for the commands.
+
+---
+
+## Round 1 · Greeting-Page Task (Rose Day Prompt)
+
+The first round used a simple seasonal theme — the point being scaffold discipline and constraint compliance on a plain page, not the theme. Exact prompt:
 
 > Build a simple "Happy Rose Day" web page.
 >
@@ -40,36 +82,9 @@ Every model received the **exact same prompt**:
 
 ---
 
-## Models Tested
+## Round 2 · Story-Page Task (Dashain Prompt)
 
-Click a link to open each model's page directly, or use
-[`index.html`](./index.html) for a gallery view with live previews.
-
-### Models Tested (Round 1)
-
-| # | Model | Folder | Entry File |
-|---|-------|--------|------------|
-| 1 | DeepSeek v4.1 | [`Deepseek v4.1/`](./Deepseek%20v4.1/index.html) | [index.html](./Deepseek%20v4.1/index.html) |
-| 2 | GLM-5.3 Flash (Free) | [`GLM5.3 flash free/`](./GLM5.3%20flash%20free/index.html) | [index.html](./GLM5.3%20flash%20free/index.html) |
-| 3 | Nemotron Lightning | [`Nemotron Lightning/`](./Nemotron%20Lightning/index.html) | [index.html](./Nemotron%20Lightning/index.html) |
-| 4 | Nemotron Super VL | [`Nemotron super vl/`](./Nemotron%20super%20vl/index.html) | [index.html](./Nemotron%20super%20vl/index.html) |
-
-Each folder contains exactly what the model created — unmodified:
-
-```
-<model folder>/
-├── index.html   ← open this in a browser
-├── style.css    ← page styling
-└── script.js    ← petal animation + message logic
-```
-
----
-
-## Round 2 · The Dashain Prompt
-
-The same four models on a second stage: only the **task** changed —
-the strict rules, the file trio, and the self-contained constraints are identical
-to Round 1, so the second comparison holds fairly.
+Same four models, same rules, same file trio — only the **task** changed, so the second comparison holds fairly:
 
 > Build an interactive, eye-catching website to wish someone
 > "Happy Dashain 🪔" — and it must tell a short story with real meaning,
@@ -103,16 +118,38 @@ to Round 1, so the second comparison holds fairly.
 > When finished, give me a short summary of the files you created and tell me
 > how to open it (it should work by simply opening index.html in a browser).
 
-### Models Tested (Round 2)
+---
 
-| # | Model | Folder | Entry File | Lines (html+css+js) |
+## Results
+
+### Round 1 · Greeting-page task
+
+| # | Model | Output Folder | Entry File |
+|---|-------|--------|------------|
+| 1 | DeepSeek v4.1 | [`Deepseek v4.1/`](./Deepseek%20v4.1/index.html) | [index.html](./Deepseek%20v4.1/index.html) |
+| 2 | GLM-5.3 Flash (Free) | [`GLM5.3 flash free/`](./GLM5.3%20flash%20free/index.html) | [index.html](./GLM5.3%20flash%20free/index.html) |
+| 3 | Nemotron Lightning | [`Nemotron Lightning/`](./Nemotron%20Lightning/index.html) | [index.html](./Nemotron%20Lightning/index.html) |
+| 4 | Nemotron Super VL | [`Nemotron super vl/`](./Nemotron%20super%20vl/index.html) | [index.html](./Nemotron%20super%20vl/index.html) |
+
+Each folder contains exactly what the model created — unmodified:
+
+```
+<model folder>/
+├── index.html   ← open this in a browser
+├── style.css    ← page styling
+└── script.js    ← animation + interactive logic
+```
+
+### Round 2 · Story-page task
+
+| # | Model | Output Folder | Entry File | Lines (html+css+js) |
 |---|-------|--------|------------|---------------------|
 | 5 | DeepSeek v4.1 | [`Dashain Deepseek v4.1/`](./Dashain%20Deepseek%20v4.1/index.html) | [index.html](./Dashain%20Deepseek%20v4.1/index.html) | 2225 |
 | 6 | GLM-5.3 Flash (Free) | [`Dashain GLM5.3 flash free/`](./Dashain%20GLM5.3%20flash%20free/index.html) | [index.html](./Dashain%20GLM5.3%20flash%20free/index.html) | 494 |
 | 7 | Nemotron Lightning | [`Dashain Nemotron Lightning/`](./Dashain%20Nemotron%20Lightning/index.html) | [index.html](./Dashain%20Nemotron%20Lightning/index.html) | 669 |
 | 8 | Nemotron Super VL | [`Dashain Nemotron super vl/`](./Dashain%20Nemotron%20super%20vl/index.html) | [index.html](./Dashain%20Nemotron%20super%20vl/index.html) | 1264 |
 
-*Lines* are raw wc -l across the three files — a rough effort signal, not a
+*Lines* are raw `wc -l` across the three files — a rough effort signal, not a
 quality verdict. Judge quality by opening the pages.
 
 ---
@@ -121,60 +158,53 @@ quality verdict. Judge quality by opening the pages.
 
 **Online — no download needed:**
 
-> Open the live gallery: <https://yourzara.github.io/same-prompt-rose-day/>
+> Open the live gallery: <https://yourzara.github.io/Same-Prompt-Experiment/>
 > (GitHub Pages, rebuilt automatically on every push to `main`.)
 
 **Easiest — just open the gallery from a local copy:**
 
-> Double-click `index.html` (this project's gallery page). It links to every model's
-> work, with live previews and links to each folder.
+> Double-click `index.html` (this project's gallery page). It links to every model's output, with live previews and links to each folder.
 
 No server, build step, or install is needed — everything is plain HTML/CSS/JS.
 
-**Open a single model's page directly:**
+**Open a single round's output directly:**
 
-Round 1 — Rose Day:
+Round 1 (greeting task):
 
 - `Deepseek v4.1/index.html`
 - `GLM5.3 flash free/index.html`
 - `Nemotron Lightning/index.html`
 - `Nemotron super vl/index.html`
 
-Round 2 — Dashain:
+Round 2 (story task):
 
 - `Dashain Deepseek v4.1/index.html`
 - `Dashain GLM5.3 flash free/index.html`
 - `Dashain Nemotron Lightning/index.html`
 - `Dashain Nemotron super vl/index.html`
 
-*(Optional, if you prefer a local server:*
-`python3 -m http.server 8000` *then visit* `http://localhost:8000` *)*
+*(Optional, if you prefer a local server:* `python3 -m http.server 8000` *then visit* `http://localhost:8000` *)*
 
 ---
 
 ## Notes
 
 - All model outputs are kept untouched for a fair comparison.
-- New models can be added by dropping another folder here and adding a row
-  to the Models table plus a card in `js.js` (the gallery reads its card list
+- **About the rename:** this repo was formerly `same-prompt-rose-day`. The experiment is theme-agnostic — the first round simply used a Rose-Day-themed prompt — so the repo now reflects what it is rather than the first round's theme. Old repository links redirect automatically; the old GitHub Pages URL does **not**, so use the new gallery path above.
+- New models can be added by dropping another output folder here and adding a row
+  to the Results table plus a card in `js.js` (the gallery reads its card list
   from the `MODELS` array at the top of the file).
 
 ---
 
 ## Automation
 
-Running another test doesn't need to be done by hand. All tooling lives in
-a **local-only** folder — `Opencode Automation/` — which is gitignored, so it
-never pollutes the repo. Test outputs still land in the project root.
+Running another round doesn't need to be done by hand. All tooling lives in a **local-only** folder — `Opencode Automation/` — which is gitignored, so it never pollutes the repo. Test outputs still land in the project root.
 
 - **`prompt.txt` / `prompt-<theme>.txt`** — the per-round prompt, single source of truth
 - **`models-<theme>.txt`** — one `Folder Name|provider/model` pair per line
-- **`run-test.sh`** — one `opencode run` session per model inside its own fresh
-  output folder (`--auto` keeps unattended runs from stalling on permission
-  prompts; the strict rules inside the prompt still confine the agent)
-- **`update-gallery.py`** — appends the model to the gallery (`ROUNDS` + `MODELS`
-  in `js.js`), the matching README round table, and the `index.html` no-JS list.
-  Idempotent — running it twice changes nothing.
+- **`run-test.sh`** — one `opencode run` session per model inside its own fresh output folder (`--auto` keeps unattended runs from stalling on permission prompts; the strict rules inside the prompt still confine the agent)
+- **`update-gallery.py`** — appends the model to the gallery (`ROUNDS` + `MODELS` in `js.js`), the matching README round table, and the `index.html` no-JS list. Idempotent — running it twice changes nothing.
 
 **Commands** (from inside `Opencode Automation/`):
 
@@ -189,7 +219,4 @@ opencode models                                       # list ids (provider/model
 ./run-test.sh --dry --batch models-<theme>.txt        # preview, zero quota
 ```
 
-`--auto-commit` makes two atomic commits per test — `chore:` for the model's
-files, `feat:` for the gallery/README patch — scans the staged diff for
-secret-like patterns, then pushes. Without the flag, finish a test with
-`./run-test.sh --update-only "Model Name" --round-id <theme>`.
+`--auto-commit` makes two atomic commits per test — `chore:` for the model's files, `feat:` for the gallery/README patch — scans the staged diff for secret-like patterns, then pushes. Without the flag, finish a test with `./run-test.sh --update-only "Model Name" --round-id <theme>`.
